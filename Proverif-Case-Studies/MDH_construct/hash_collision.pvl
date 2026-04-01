@@ -54,12 +54,28 @@ axiom x1,x2,h1,h2,h1',h2':bitstring;
 (** Axioms to transform the hash in the predicates in their normal form. *)
 
 (* We put the term inside the predicate in its normal form *)
-axiom h,h1,h2,h1',h2':bitstring;
-  eq_hash_col(h,h) ==> true;
+axiom h: bitstring;
+  eq_hash_col(h, h) ==> true
+.
+
+axiom h1,h2,h1',h2':bitstring;
   eq_hash_col(h1,h2) && not(is_normal_MDH(h1)) && h1' <-- MDH(h1) ==> eq_hash_col(h1',h2);
   eq_hash_col(h1,h2) && not(is_normal_MDH(h2)) && h2' <-- MDH(h2) ==> eq_hash_col(h1,h2')
   [forcedRemove,fullSat]
 .
+
+(* Generalized MDH Head-Pair Unfolding Axiom for the collision model.
+   Encodes H((a,b),h) -> H(b,H(a,h)) as a pure resolution axiom that fires
+   on abstract terms (unlike the compfun MDH which requires ground eval).
+   One unfolding step per application; terminates as nesting depth decreases.
+   Protocol-independent \u2014 handles any transcript depth without per-protocol axioms. *)
+axiom a, b, h1, x, h2: bitstring;
+  eq_hash_col(H((a, b), h1), H(x, h2)) ==> eq_hash_col(H(b, H(a, h1)), H(x, h2))
+  [forcedRemove,fullSat,fullVerif].
+axiom a, b, h1, x, h2: bitstring;
+  eq_hash_col(H(x, h1), H((a, b), h2)) ==> eq_hash_col(H(x, h1), H(b, H(a, h2)))
+  [forcedRemove,fullSat,fullVerif].
+
 
 (** Axiom that simlify the equality predicate when extremities of the hash are
   syntactically equal *)
@@ -335,10 +351,21 @@ axiom x, y, z, w: bitstring;
     x = (w, (z, y))
 .
 
-(* Resolution-level axiom for attacker-controlled head variables.
-   Needed for IKE collision Q2/Q3. Note: causes non-termination in
-   SIGMA collision — run SIGMA without this axiom if needed. *)
+(* Attacker-head axiom — Case A: attacker-var vs concrete non-var.
+   No annotation: fires in both Phase 1 saturation and Phase 2 reconstruction.
+   This is the original axiom behavior — preserves simplified IKE results. *)
 axiom x1, h1, x2, h2: bitstring;
   eq_hash_col(H(x1,h1),H(x2,h2)) && is_var(x1) && attacker(x1) && not(is_var(x2)) ==> x1 = x2;
   eq_hash_col(H(x1,h1),H(x2,h2)) && is_var(x2) && attacker(x2) && not(is_var(x1)) ==> x2 = x1
+.
+
+(* Attacker-head axiom — Case B: attacker-var vs any variable (incl. fresh honest
+   nonces like SA_A which are ProVerif variables but not attacker-controlled).
+   [forTraceReconstruction] only — fullSat causes non-termination in collision model
+   because the CPcol axiom (is_var(x1) && is_var(x2) => CPcol branching) creates
+   infinite loops when combined with var-var equality on fullSat. *)
+axiom x1, h1, x2, h2: bitstring;
+  eq_hash_col(H(x1,h1),H(x2,h2)) && is_var(x1) && attacker(x1) && is_var(x2) ==> x1 = x2;
+  eq_hash_col(H(x1,h1),H(x2,h2)) && is_var(x2) && attacker(x2) && is_var(x1) ==> x2 = x1
+  [forTraceReconstruction]
 .

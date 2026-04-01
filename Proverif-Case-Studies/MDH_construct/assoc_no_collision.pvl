@@ -72,12 +72,31 @@ compfun is_normal_flatten(bitstring):bool =
 .
 
 (* We put the term inside the predicate in its normal form *)
-axiom h,h1,h2,h1',h2':bitstring;
-  eq_assoc(h,h) ==> true;
+axiom h: bitstring;
+  eq_assoc(h, h) ==> true
+.
+
+axiom h1,h2,h1',h2':bitstring;
   eq_assoc(h1,h2) && not(is_normal_flatten(h1)) && h1' <-- flatten(h1) ==> eq_assoc(h1',h2);
   eq_assoc(h1,h2) && not(is_normal_flatten(h2)) && h2' <-- flatten(h2) ==> eq_assoc(h1,h2')
   [forcedRemove,fullSat,fullVerif]
 .
+
+(* Generalized Flatten Head-Pair Unfolding Axiom.
+   The flatten normalization rule ((a,b),l) -> (a,(b,l)) cannot fire during
+   abstract resolution because flatten is a compfun (requires ground eval).
+   This encodes the same step as a pure resolution axiom that works on abstract
+   terms — one step per application, terminating as nesting depth decreases by 1.
+   Protocol-independent: handles any transcript depth without per-depth axioms.
+   [forcedRemove] replaces the clause so the renamed clause can fire again if
+   the new head is still a pair. *)
+axiom a, b, l, t: bitstring;
+  eq_assoc(((a, b), l), t) ==> eq_assoc((a, (b, l)), t)
+  [forcedRemove,fullSat,fullVerif].
+axiom a, b, l, t: bitstring;
+  eq_assoc(t, ((a, b), l)) ==> eq_assoc(t, (a, (b, l)))
+  [forcedRemove,fullSat,fullVerif].
+
 
 axiom x1,x2:bitstring;
   eq_assoc((x1,Nil),(x2,Nil)) && attacker(x1) ==> x1 = x2;
@@ -97,6 +116,7 @@ compfun split_last_term(bitstring):bitstring =
   otherwise forall x,h:bitstring; split_last_term((x,h)) ->
     let (x':bitstring,h':bitstring,was_ended:bool) = split_last_term(h) in
     (x',(x,h'),was_ended)
+  [mayFail]
 .
 
 (* last_term_equal(h1,h2) returns (h1',h2') when
@@ -274,3 +294,53 @@ axiom x1,x1',h1,h1',x2,x2':bitstring;
   eq_assoc((x1,h1),(x1',h1')) && not(cond_var(x1',h1')) && not(cond_var(x1,h1)) ==> x1 = x1'
   [forTraceReconstruction]
 .
+
+(* MDH Associativity Merge Axioms for eq_hash.
+   In the no-collision model, H((x,Nil)) = H((y,(z,Nil))) iff x = (z,y)
+   by MDH normalization: H(((z,y),Nil)) -> H((y,H((z,Nil)))).
+   These axioms close the depth-mismatch gap in the resolution phase
+   (Root Cause 1 from the report). *)
+
+(* Depth-1 vs Depth-2 merge *)
+axiom x, y, z: bitstring;
+  eq_hash(H((x, Nil)), H((y, (z, Nil)))) ==>
+    x = (z, y)
+.
+axiom x, y, z: bitstring;
+  eq_hash(H((y, (z, Nil))), H((x, Nil))) ==>
+    x = (z, y)
+.
+
+(* Depth-1 vs Depth-3 merge: H((x,Nil)) = H((y,(z,(w,Nil)))) iff x = (w,(z,y)) *)
+axiom x, y, z, w: bitstring;
+  eq_hash(H((x, Nil)), H((y, (z, (w, Nil))))) ==>
+    x = (w, (z, y))
+.
+axiom x, y, z, w: bitstring;
+  eq_hash(H((y, (z, (w, Nil)))), H((x, Nil))) ==>
+    x = (w, (z, y))
+.
+
+(* Attacker-Head Resolution Axiom for eq_assoc.
+   Two cases: (Root Cause 2 from the report)
+   Case A (original): attacker-controlled variable vs concrete (not-var) term.
+   Case B (new for NDSS IKE): attacker-controlled variable vs a non-attacker
+     variable (e.g. a fresh honest nonce like SA_A). In NDSS IKE all fresh
+     values like @1_SA_A_2 are ProVerif variables (is_var=true) but NOT under
+     attacker control, so `not(is_var(x2))` was too strict and blocked this case.
+   The pair branch is omitted in both cases to prevent non-termination; depth
+   mismatches are already handled by the merge axioms above.
+   [fullSat] forces these to fire during Phase 1 saturation. *)
+axiom x1, h1, x2, h2: bitstring;
+  (* Case A: attacker-controlled variable vs a concrete (non-var) term *)
+  eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && not(is_var(x2)) ==> x1 = x2;
+  eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && not(is_var(x1)) ==> x2 = x1;
+  (* Case B: attacker-controlled variable vs any other variable (concrete or fresh nonce).
+     not(attacker(...)) is disallowed in axioms, so we guard only with is_var(x2).
+     Sound because the attacker simply chooses x1 = x2; the pair branch is omitted
+     to prevent non-termination (depth mismatches handled by merge axioms above). *)
+  eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && is_var(x2) ==> x1 = x2;
+  eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && is_var(x1) ==> x2 = x1
+  [fullSat]
+.
+

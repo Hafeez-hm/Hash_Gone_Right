@@ -68,12 +68,38 @@ compfun is_normal_MDH(bitstring):bool =
 .
 
 (* We put the term inside the predicate in its normal form *)
-axiom h,h1,h2,h1',h2':bitstring;
-  eq_hash(h,h) ==> true;
+(* eq_hash reflexivity: fires in ALL phases including trace reconstruction.
+   Must be a standalone axiom (no annotation restricting to fullSat/fullVerif only)
+   so it can close eq_hash(h,h) goals that arise during Phase 2 trace reconstruction. *)
+axiom h: bitstring;
+  eq_hash(h, h) ==> true
+.
+
+(* eq_hash normalization via MDH compfun. Only fires when terms are ground
+   (compfun requirement). Covers the remaining normalization during saturation. *)
+axiom h1,h2,h1',h2':bitstring;
   eq_hash(h1,h2) && not(is_normal_MDH(h1)) && h1' <-- MDH(h1) ==> eq_hash(h1',h2);
   eq_hash(h1,h2) && not(is_normal_MDH(h2)) && h2' <-- MDH(h2) ==> eq_hash(h1,h2')
   [forcedRemove,fullSat,fullVerif]
 .
+
+(* Generalized MDH Head-Pair Unfolding Axiom.
+   The MDH normalization rule H((a,b),h) -> H(b,H(a,h)) cannot be applied
+   during abstract resolution because MDH is a compfun (requires ground eval).
+   This axiom encodes the same rule as a pure Horn clause that fires on
+   abstract terms — one unfolding step per application, terminating because
+   nesting depth decreases by 1 each time.
+   This is PROTOCOL-INDEPENDENT: it works for any transcript depth, replacing
+   all protocol-specific depth-N merge axioms with a single general rule.
+   [forcedRemove] replaces the old clause with the unfolded one, preventing
+   duplication; the renamed clause fires again if the new head is still a pair. *)
+axiom a, b, h1, x, h2: bitstring;
+  eq_hash(H((a, b), h1), H(x, h2)) ==> eq_hash(H(b, H(a, h1)), H(x, h2))
+  [forcedRemove,fullSat,fullVerif].
+axiom a, b, h1, x, h2: bitstring;
+  eq_hash(H(x, h1), H((a, b), h2)) ==> eq_hash(H(x, h1), H(b, H(a, h2)))
+  [forcedRemove,fullSat,fullVerif].
+
 
 axiom x1,x2:bitstring;
   eq_hash(H(x1,Nil),H(x2,Nil)) && attacker(x1) ==> x1 = x2;
@@ -93,6 +119,7 @@ compfun split_last_term(bitstring):bitstring =
   otherwise forall x,h:bitstring; split_last_term(H(x,h)) ->
     let (x':bitstring,h':bitstring,was_ended:bool) = split_last_term(h) in
     (x',H(x,h'),was_ended)
+  [mayFail]
 .
 
 (* last_term_equal(h1,h2) returns (h1',h2') when
@@ -315,17 +342,23 @@ axiom x, y, z, w: bitstring;
     x = (w, (z, y))
 .
 
-(* Resolution-level axiom for attacker-controlled head variables.
-   When eq_hash(H(x1, h1), H(x2, h2)) with x1 an attacker variable
-   and x2 not a variable, x1 must equal x2. This bypasses the
-   instantiate_allowed guard which fails when the other chain contains
-   attacker variables. The pair branch (x1 = (x1a,x1b)) is omitted to
-   avoid non-termination; depth-mismatch cases are handled by the
-   merge axioms above. *)
+(* Attacker-head axiom — Case A: attacker-var vs concrete non-var.
+   No annotation: fires in both Phase 1 saturation and Phase 2 reconstruction.
+   This is the original axiom behavior — preserves simplified IKE results. *)
 axiom x1, h1, x2, h2: bitstring;
   eq_hash(H(x1,h1),H(x2,h2)) && is_var(x1) && attacker(x1) && not(is_var(x2)) ==> x1 = x2;
   eq_hash(H(x1,h1),H(x2,h2)) && is_var(x2) && attacker(x2) && not(is_var(x1)) ==> x2 = x1
 .
+
+(* Attacker-head axiom — Case B: attacker-var vs any variable (incl. fresh honest
+   nonces like SA_A which are ProVerif variables but not attacker-controlled).
+   [fullSat] is safe here — no CPcol axioms in this file so no non-termination risk. *)
+axiom x1, h1, x2, h2: bitstring;
+  eq_hash(H(x1,h1),H(x2,h2)) && is_var(x1) && attacker(x1) && is_var(x2) ==> x1 = x2;
+  eq_hash(H(x1,h1),H(x2,h2)) && is_var(x2) && attacker(x2) && is_var(x1) ==> x2 = x1
+  [fullSat]
+.
+
 
 (* axiom x1,x1',h1,h1',x2,x2':bitstring;
   eq_hash(H(x1,h1),H(x1',h1')) ==> x1 = x1' || x1 = (x2,x1') || x1' = (x2',x1)
