@@ -1,0 +1,46 @@
+(*************************************************************
+ *                                                           *
+ *  Cryptographic protocol verifier                          *
+ *                                                           *
+ *  Bruno Blanchet, Vincent Cheval, and Marc Sylvestre       *
+ *                                                           *
+ *  Copyright (C) INRIA, CNRS 2000-2023                      *
+ *                                                           *
+ *************************************************************)
+
+(*
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details (in file LICENSE).
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+*)
+type nonce.
+fun nonce2bs(nonce): bitstring [typeConverter].
+
+free c: channel.
+
+event Built(nonce, bitstring).
+event Accepted(nonce, bitstring).
+
+query n: nonce, y: bitstring, y': bitstring;
+    event(Accepted(n, y)) ==> event(Built(n, y')) && eq_hash(y, y').
+
+process
+    new n: nonce;
+    let h: bitstring = buildH(nonce2bs(n)) in
+    event Built(n, h);
+    out(c, h);
+    in(c, y: bitstring);
+    if equal_hash(h, y) then
+        event Accepted(n, y)

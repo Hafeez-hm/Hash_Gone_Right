@@ -1,0 +1,62 @@
+(*************************************************************
+ *                                                           *
+ *  Cryptographic protocol verifier                          *
+ *                                                           *
+ *  Bruno Blanchet, Vincent Cheval, and Marc Sylvestre       *
+ *                                                           *
+ *  Copyright (C) INRIA, CNRS 2000-2023                      *
+ *                                                           *
+ *************************************************************)
+
+(*
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details (in file LICENSE).
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+*)
+type G.
+type exponent.
+fun g2bs(G): bitstring [typeConverter].
+
+(* Diffie-Hellman *)
+
+const g: G [data].
+fun exp(G, exponent): G.
+
+equation forall x: exponent, y: exponent; exp(exp(g,x),y) = exp(exp(g,y),x).
+
+free c: channel.
+
+event DhTagSent(bitstring).
+event DhTagAccepted(bitstring).
+
+table DhTags(bitstring).
+
+query h: bitstring, h': bitstring;
+    event(DhTagAccepted(h)) ==> event(DhTagSent(h')) && eq_hash(h, h').
+
+process
+    new a: exponent;
+    new b: exponent;
+    let ga = exp(g, a) in
+    let gb = exp(g, b) in
+    let shared = exp(ga, b) in
+    let h = buildH((g2bs(ga), g2bs(shared))) in
+    insert DhTags(h);
+    event DhTagSent(h);
+    out(c, (ga, gb, h));
+    in(c, hin: bitstring);
+    get DhTags(hs: bitstring) in
+    if equal_hash(hin, hs) then
+        event DhTagAccepted(hin)

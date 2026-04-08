@@ -1,0 +1,237 @@
+ ---> Options chosen:
+(* All flattening that make sense for the given protocol! *)
+(* Only bounded CPC or IP-C (on prefix of size 1 block)! *)
+(******* The number of arguments that is suitable for analyzing a protocol depends on the number of arguments given to MDH by honest agents.
+Here it is 6. Collapse tuples of size 2 <= size <= 3 *)
+fun MDH(bitstring):bitstring
+reduc forall x:bitstring; MDH( NIL ) = NIL
+(***** LIST FLATTENING *)
+(* All flattening for 6 arguments and collapsed tuples of size <= 3: *)
+(* For simplified IKE v2: 5 arguments: *)
+(* Position of the argument: 1. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH( ((x1,x2), x3,x4,x5,x6,x7) ) =
+  H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL )))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring,x8:bitstring;
+  MDH( ((x1,x2,x3), x4,x5,x6,x7,x8) ) =
+  H(x8,H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL ))))))))
+
+(* Position of the argument: 2. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH( (x1, (x2,x3), x4,x5,x6,x7) ) =
+  H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL )))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring,x8:bitstring;
+  MDH( (x1, (x2,x3,x4), x5,x6,x7,x8) ) =
+  H(x8,H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL ))))))))
+
+(* Position of the argument: 3. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH( (x1,x2, (x3,x4), x5,x6,x7) ) =
+  H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL )))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring,x8:bitstring;
+  MDH( (x1,x2, (x3,x4,x5), x6,x7,x8) ) =
+  H(x8,H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL ))))))))
+
+(* Position of the argument: 4. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH( (x1,x2,x3, (x4,x5), x6,x7) ) =
+  H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL )))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring,x8:bitstring;
+  MDH( (x1,x2,x3, (x4,x5,x6), x7,x8) ) =
+  H(x8,H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL ))))))))
+
+(* Position of the argument: 5. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH( (x1,x2,x3,x4, (x5,x6), x7) ) =
+  H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL )))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring,x8:bitstring;
+  MDH( (x1,x2,x3,x4, (x5,x6,x7), x8) ) =
+  H(x8,H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL ))))))))
+
+(* Position of the argument: 6. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH( (x1,x2,x3,x4,x5, (x6,x7) )) =
+  H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL )))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring,x8:bitstring;
+  MDH( (x1,x2,x3,x4,x5, (x6,x7,x8) )) =
+  H(x8,H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL ))))))))
+
+
+(* Position of the argument: 1. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring;
+  MDH( ((x1,x2), x3,x4,x5,x6) ) =
+  H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL ))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH( ((x1,x2,x3), x4,x5,x6,x7) ) =
+  H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL )))))))
+
+(* Position of the argument: 2. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring;
+  MDH( (x1, (x2,x3), x4,x5,x6) ) =
+  H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL ))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH( (x1, (x2,x3,x4), x5,x6,x7) ) =
+  H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL )))))))
+
+(* Position of the argument: 3. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring;
+  MDH( (x1,x2, (x3,x4), x5,x6) ) =
+  H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL ))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH( (x1,x2, (x3,x4,x5), x6,x7) ) =
+  H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL )))))))
+
+(* Position of the argument: 4. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring;
+  MDH( (x1,x2,x3, (x4,x5), x6) ) =
+  H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL ))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH( (x1,x2,x3, (x4,x5,x6), x7) ) =
+  H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL )))))))
+
+(* Position of the argument: 5. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring;
+  MDH( (x1,x2,x3,x4, (x5,x6) )) =
+  H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL ))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH( (x1,x2,x3,x4, (x5,x6,x7) )) =
+  H(x7,H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL )))))))
+
+
+
+(***** HAPPY FLOW *)
+(* For simplified IKE v2: 5 arguments (transcriptA): *)
+otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring;
+  MDH( (x1,x2,x3,x4,x5,x6) ) =
+  H(x6,H(x5,H(x4,H(x3,H(x2,H(x1,NIL ))))))
+(* and also 4 arguments (transcriptB): *)
+otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring;
+  MDH( (x1,x2,x3,x4,x5) ) =
+  H(x5,H(x4,H(x3,H(x2,H(x1,NIL )))))
+otherwise forall x:bitstring; MDH( x ) = NIL.
+(******* The number of arguments that is suitable for analyzing a protocol depends on the number of arguments given to MDH by honest agents.
+Here it is 6. Collapse tuples of size 2 <= size <= 3 *)
+fun MDH_(bitstring):bitstring
+reduc forall x:bitstring; MDH_( NIL ) = NIL
+(***** LIST FLATTENING *)
+(* All flattening for 6 arguments and collapsed tuples of size <= 3: *)
+(* For simplified IKE v2: 5 arguments: *)
+(* Position of the argument: 1. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH_( ((x1,x2), x3,x4,x5,x6,x7) ) =
+  H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL )))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring,x8:bitstring;
+  MDH_( ((x1,x2,x3), x4,x5,x6,x7,x8) ) =
+  H_(x8,H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL ))))))))
+
+(* Position of the argument: 2. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH_( (x1, (x2,x3), x4,x5,x6,x7) ) =
+  H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL )))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring,x8:bitstring;
+  MDH_( (x1, (x2,x3,x4), x5,x6,x7,x8) ) =
+  H_(x8,H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL ))))))))
+
+(* Position of the argument: 3. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH_( (x1,x2, (x3,x4), x5,x6,x7) ) =
+  H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL )))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring,x8:bitstring;
+  MDH_( (x1,x2, (x3,x4,x5), x6,x7,x8) ) =
+  H_(x8,H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL ))))))))
+
+(* Position of the argument: 4. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH_( (x1,x2,x3, (x4,x5), x6,x7) ) =
+  H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL )))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring,x8:bitstring;
+  MDH_( (x1,x2,x3, (x4,x5,x6), x7,x8) ) =
+  H_(x8,H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL ))))))))
+
+(* Position of the argument: 5. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH_( (x1,x2,x3,x4, (x5,x6), x7) ) =
+  H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL )))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring,x8:bitstring;
+  MDH_( (x1,x2,x3,x4, (x5,x6,x7), x8) ) =
+  H_(x8,H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL ))))))))
+
+(* Position of the argument: 6. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH_( (x1,x2,x3,x4,x5, (x6,x7) )) =
+  H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL )))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring,x8:bitstring;
+  MDH_( (x1,x2,x3,x4,x5, (x6,x7,x8) )) =
+  H_(x8,H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL ))))))))
+
+
+(* Position of the argument: 1. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring;
+  MDH_( ((x1,x2), x3,x4,x5,x6) ) =
+  H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL ))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH_( ((x1,x2,x3), x4,x5,x6,x7) ) =
+  H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL )))))))
+
+(* Position of the argument: 2. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring;
+  MDH_( (x1, (x2,x3), x4,x5,x6) ) =
+  H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL ))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH_( (x1, (x2,x3,x4), x5,x6,x7) ) =
+  H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL )))))))
+
+(* Position of the argument: 3. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring;
+  MDH_( (x1,x2, (x3,x4), x5,x6) ) =
+  H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL ))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH_( (x1,x2, (x3,x4,x5), x6,x7) ) =
+  H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL )))))))
+
+(* Position of the argument: 4. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring;
+  MDH_( (x1,x2,x3, (x4,x5), x6) ) =
+  H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL ))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH_( (x1,x2,x3, (x4,x5,x6), x7) ) =
+  H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL )))))))
+
+(* Position of the argument: 5. *)
+(* Tuple being flattened of size: 2. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring;
+  MDH_( (x1,x2,x3,x4, (x5,x6) )) =
+  H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL ))))))
+(* Tuple being flattened of size: 3. *) otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring,x7:bitstring;
+  MDH_( (x1,x2,x3,x4, (x5,x6,x7) )) =
+  H_(x7,H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL )))))))
+
+
+
+(***** HAPPY FLOW *)
+(* For simplified IKE v2: 5 arguments (transcriptA): *)
+otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring,x6:bitstring;
+  MDH_( (x1,x2,x3,x4,x5,x6) ) =
+  H_(x6,H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL ))))))
+(* and also 4 arguments (transcriptB): *)
+otherwise forall x1:bitstring,x2:bitstring,x3:bitstring,x4:bitstring,x5:bitstring;
+  MDH_( (x1,x2,x3,x4,x5) ) =
+  H_(x5,H_(x4,H_(x3,H_(x2,H_(x1,NIL )))))
+otherwise forall x:bitstring; MDH_( x ) = NIL.
+\n ---> Running ProVerif, log file and html outputs in LOGs/__file:IKE_S_m4:allFlat+boundedCol_date:07.03.26-22h-12m-50s/LOG.txt. Only displaying errors and analysis results ...
+START DATE: 07.03.26 -- 22:12:50
+time proverif  -lib chosenPrefixM4_HF_EC.pvl.pvl -lib MDH.pvl.pvl simplified_ikeV2_HF_EC.pv.pv 2>&1 | tee -a "LOGs/"__file:IKE_S_m4:allFlat+boundedCol_date:07.03.26-22h-12m-50s"/LOG.txt" | grep -E "error|Error|RESULT|avgtext"
+RESULT event(acceptB2(B_1,A_1,sA_4)) ==> event(initA2(A_1,sA_4)) || event(Dishonest(B_1)) || event(Dishonest(A_1)) is false.
+RESULT event(acceptB(B_1,A_1,x_1,y_1,t,h)) ==> event(initA(A_1,B',x',y',t,h')) || event(Dishonest(B_1)) || event(Dishonest(A_1)) is false.
+RESULT event(acceptB(B_1,A_1,x_1,y_1,t,h)) ==> event(initA(A_1,B',x',y',t',h)) || event(Dishonest(B_1)) || event(Dishonest(A_1)) is true.
+RESULT not event(SanityA(true,x_1)) is false.
+RESULT not event(SanityA(false,x_1)) is false.
+RESULT not event(SanityB(true,x_1)) is false.
+RESULT not event(SanityB(false,x_1)) is false.
+RESULT not attacker(secr) is true.
+
+real	0m30.269s
+user	0m29.070s
+sys	0m1.015s
+END DATE: 07.03.26 -- 22:13:20
+ ===> Done, full LOG in LOGs/__file:IKE_S_m4:allFlat+boundedCol_date:07.03.26-22h-12m-50s/LOG.txt.
+ ---> Openingn LOGs/__file:IKE_S_m4:allFlat+boundedCol_date:07.03.26-22h-12m-50s/index.html.

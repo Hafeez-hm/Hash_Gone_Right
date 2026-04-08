@@ -1,0 +1,67 @@
+(*************************************************************
+ *                                                           *
+ *  Cryptographic protocol verifier                          *
+ *                                                           *
+ *  Bruno Blanchet, Vincent Cheval, and Marc Sylvestre       *
+ *                                                           *
+ *  Copyright (C) INRIA, CNRS 2000-2023                      *
+ *                                                           *
+ *************************************************************)
+
+(*
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details (in file LICENSE).
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+*)
+type skey.
+type pkey.
+type seed.
+type block.
+type encblock.
+fun block2bs(block): bitstring [typeConverter].
+
+(* Probabilistic public-key encryption *)
+
+fun pk(skey): pkey.
+fun enc(block, pkey, seed): encblock.
+fun dec(encblock, skey): block.
+equation forall x: block, y: skey, z: seed;  dec(enc(x, pk(y), z), y) = x.
+
+
+free c,c2: channel.
+
+event CipherTagSent(block, bitstring).
+event CipherTagAccepted(block, bitstring).
+
+query x: block, h: bitstring, h': bitstring;
+  event(CipherTagAccepted(x, h)) ==> event(CipherTagSent(x, h')) && eq_hash(h, h').
+
+process
+	new s: skey;
+	(
+	  out(c, pk(s))
+	|
+	  !
+	  in(c2, x: block);
+	  new a: seed;
+    let ct = enc(x, pk(s), a) in
+    let h = buildH((block2bs(x), block2bs(dec(ct, s)))) in
+    event CipherTagSent(x, h);
+    out(c, ct);
+    out(c, h);
+    in(c2, hin: bitstring);
+    if equal_hash(h, hin) then
+      event CipherTagAccepted(x, hin)
+	)

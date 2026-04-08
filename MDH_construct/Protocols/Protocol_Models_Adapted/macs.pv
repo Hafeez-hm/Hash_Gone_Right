@@ -1,0 +1,55 @@
+(*************************************************************
+ *                                                           *
+ *  Cryptographic protocol verifier                          *
+ *                                                           *
+ *  Bruno Blanchet, Vincent Cheval, and Marc Sylvestre       *
+ *                                                           *
+ *  Copyright (C) INRIA, CNRS 2000-2023                      *
+ *                                                           *
+ *************************************************************)
+
+(*
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details (in file LICENSE).
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+*)
+(* MDH-adapted keyed-hash check: sender emits buildH((k,x));
+   receiver accepts tags using equal_hash. *)
+
+type key.
+fun key2bs(key): bitstring [typeConverter].
+
+free c, c1, c2: channel.
+
+event MacSent(bitstring, bitstring).
+event MacAccepted(bitstring, bitstring).
+
+query x: bitstring, m: bitstring, m': bitstring;
+  event(MacAccepted(x, m)) ==> event(MacSent(x, m')) && eq_hash(m, m').
+
+process
+  new k: key;
+  (
+    !in(c1, x: bitstring);
+    let tag: bitstring = buildH((key2bs(k), x)) in
+    event MacSent(x, tag);
+    out(c, (x, tag))
+  |
+    !in(c, (x: bitstring, m: bitstring));
+    let expected: bitstring = buildH((key2bs(k), x)) in
+    if equal_hash(expected, m) then
+      event MacAccepted(x, m);
+      out(c2, x)
+  )

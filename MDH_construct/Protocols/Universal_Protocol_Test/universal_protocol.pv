@@ -1,0 +1,200 @@
+set verboseDestructors = true.
+set reconstructTrace = true.
+
+channel c.
+
+(* Core algebraic/crypto types aligned with the reference models *)
+type G.
+type t_exponent.
+type t_sk.
+type t_pk.
+type t_key.
+
+fun G2key(G): t_key [typeConverter].
+fun upk2bs(t_pk): bitstring [typeConverter].
+
+const g: G.
+const badElement: t_exponent.
+const weak: G.
+
+fun exp_ideal(G, t_exponent): G.
+equation forall y: t_exponent, z: t_exponent;
+  exp_ideal(exp_ideal(g,y),z) = exp_ideal(exp_ideal(g,z),y).
+
+fun exp(G, t_exponent): G
+reduc forall a:G, y:t_exponent; exp(a,badElement) = weak
+otherwise forall a:G, y:t_exponent; exp(weak,y) = weak
+otherwise forall a:G, y:t_exponent; exp(a,y) = exp_ideal(a,y).
+
+fun usign(bitstring, t_sk): bitstring.
+fun upk(t_sk): t_pk.
+fun ugetmsg(bitstring): bitstring
+reduc forall m:bitstring, sk:t_sk; ugetmsg(usign(m,sk)) = m.
+
+fun usignCheck(bitstring, t_pk): bool
+reduc forall m:bitstring, sk:t_sk; usignCheck(usign(m,sk), upk(sk)) = true
+otherwise forall s:bitstring, p:t_pk; usignCheck(s, p) = false.
+
+fun uMAC(bitstring, t_key): bitstring.
+fun uKDF(G, bitstring, nat): t_key.
+
+fun usenc(bitstring, t_key): bitstring.
+fun udec(bitstring, t_key): bitstring
+reduc forall m:bitstring, k:t_key; udec(usenc(m,k),k) = m.
+
+const SA_INIT: bitstring.
+const noCookie: bitstring.
+
+(* Events mirror the report-friendly style used in simplified IKE *)
+event Dishonest(t_pk).
+event initA(t_pk,t_pk,bitstring,bitstring,bitstring,bitstring).
+event initA2(t_pk,bitstring).
+event initB(t_pk,t_pk,bitstring,bitstring,bitstring).
+event acceptA(t_pk,t_pk,bitstring,bitstring,bitstring,bitstring).
+event acceptB(t_pk,t_pk,bitstring,bitstring,bitstring,bitstring).
+event acceptB2(t_pk,t_pk,bitstring).
+event sessionKeyA(t_pk,t_pk,t_key).
+event sessionKeyB(t_pk,t_pk,t_key).
+event SanityA(bool,bitstring).
+event SanityB(bool,bitstring).
+
+(*
+  Universal property set:
+  - Q1: type-flaw style agreement on signer identity + signed blob marker
+  - Q2: transcript agreement through eq_hash(t,t')
+  - Q3: hash agreement through eq_hash(h,h')
+  - key secrecy and reachability checks
+*)
+query A:t_pk,B:t_pk,B':t_pk,x,x':bitstring,y,y':bitstring,t,t',h,h',sA:bitstring,k:t_key;
+  event(acceptB2(B,A,sA)) ==> (event(initA2(A,sA)) || event(Dishonest(B)) || event(Dishonest(A)));
+  event(acceptB(B,A,x,y,t,h)) ==> ((event(initA(A,B',x',y',t',h')) && eq_hash(t,t')) || event(Dishonest(B)) || event(Dishonest(A)));
+  event(acceptB(B,A,x,y,t,h)) ==> ((event(initA(A,B',x',y',t',h')) && eq_hash(h,h')) || event(Dishonest(B)) || event(Dishonest(A)));
+  (event(sessionKeyA(B,A,k)) && attacker(k)) ==> (event(Dishonest(B)) || event(Dishonest(A)));
+  (event(sessionKeyB(B,A,k)) && attacker(k)) ==> (event(Dishonest(B)) || event(Dishonest(A)));
+  event(SanityA(true,x));
+  event(SanityA(false,x));
+  event(SanityB(true,x));
+  event(SanityB(false,x)).
+
+(* Initiator role with attacker-influenced transcript shape and head blocks *)
+let roleA(skA:t_sk, pkB:t_pk) =
+  let pkA:t_pk = upk(skA) in
+  if pkA <> pkB then
+  new x: t_exponent;
+  new nA: bitstring;
+  new sA: bitstring;
+
+  (* m1 carries fresh values; later, attacker can force cookie/no-cookie branch *)
+  let m1_plain:bitstring = (sA, (nA, exp(g,x))) in
+  out(c, m1_plain);
+
+  in(c, cookie_msg:bitstring);
+  let cookie:bitstring =
+    (let (=SA_INIT, ck:bitstring) = cookie_msg in ck else noCookie)
+  in
+  let m1:bitstring =
+    if cookie = noCookie then m1_plain else (cookie, m1_plain)
+  in
+
+  in(c, m2:bitstring);
+  let (sB:bitstring, (nB:bitstring, gy:G)) = m2 in
+  if gy <> g then
+
+  let k1:t_key = uKDF(exp(gy,x), (nA,nB), 1) in
+  let k2:t_key = uKDF(exp(gy,x), (nA,nB), 2) in
+  let kA:t_key = uKDF(exp(gy,x), (nA,nB), 3) in
+  let macA:bitstring = uMAC(upk2bs(pkA), kA) in
+
+  (* Depth-mismatch trigger: same semantic transcript can be encoded with or without cookie prefix *)
+  let transcriptA:bitstring =
+    if cookie = noCookie
+    then (sA, (nA, (exp(g,x), (nB, macA))))
+    else (cookie, (sA, (nA, (exp(g,x), (nB, macA)))))
+  in
+
+  let hA:bitstring = buildH(transcriptA) in
+
+  (* Use the authenticated transcript hash as t, as in the reference IKE models. *)
+  let tA:bitstring = hA in
+
+  event initA(pkA, pkB, (nA,nB), (m1,nB), tA, hA);
+  event initA2(pkA, sA);
+
+  out(c, usenc((pkA, usign(hA, skA)), k1));
+  in(c, cipher:bitstring);
+  let (=pkB, sm:bitstring) = udec(cipher, k2) in
+  if usignCheck(sm, pkB) then
+  let hB':bitstring = ugetmsg(sm) in
+
+  let transcriptB:bitstring = (sB, (nB, (gy, (nA, uMAC(upk2bs(pkB), kA))))) in
+  let hB:bitstring = buildH(transcriptB) in
+
+  if eq_hash(hB, hB') then
+    event acceptA(pkA, pkB, (nA,nB), (m1,nB), tA, hA);
+    event sessionKeyA(pkA, pkB, k1);
+    event SanityA(cookie = noCookie, (m1,m2)).
+
+(* Responder role with replay/cross-session and attacker-controlled heads *)
+let roleB(skB:t_sk, pkA:t_pk) =
+  let pkB:t_pk = upk(skB) in
+  if pkB <> pkA then
+
+  in(c, m1_recv:bitstring);
+  new ck:bitstring;
+  out(c, (SA_INIT, ck));
+
+  in(c, withCookie:bool);
+  in(c, m1_cookie:bitstring);
+
+  let m1:bitstring = if withCookie then m1_cookie else m1_recv in
+  let (sA:bitstring, nA:bitstring, gx:G) =
+    if withCookie
+    then (let (=ck, (sA:bitstring, (nA:bitstring, gx:G))) = m1 in (sA, nA, gx))
+    else (let (sA:bitstring, (nA:bitstring, gx:G)) = m1 in (sA, nA, gx))
+  in
+
+  if gx <> g then
+  new y: t_exponent;
+  new nB: bitstring;
+  new sB: bitstring;
+
+  let m2:bitstring = (sB, (nB, exp(g,y))) in
+
+  let k1:t_key = uKDF(exp(gx,y), (nA,nB), 1) in
+  let kB:t_key = uKDF(exp(gx,y), (nA,nB), 3) in
+  let macA:bitstring = uMAC(upk2bs(pkA), kB) in
+
+  let transcriptA:bitstring =
+    if withCookie
+    then (ck, (sA, (nA, (gx, (nB, macA)))))
+    else (sA, (nA, (gx, (nB, macA))))
+  in
+  let hA:bitstring = buildH(transcriptA) in
+
+  let tB:bitstring = hA in
+
+  event initB(pkB, pkA, (nA,nB), (m1,nB), hA);
+  out(c, m2);
+
+  in(c, cipher:bitstring);
+  let (=pkA, sm:bitstring) = udec(cipher, k1) in
+  if usignCheck(sm, pkA) then
+  let hA':bitstring = ugetmsg(sm) in
+  if eq_hash(hA, hA') then
+    event acceptB(pkB, pkA, (nA,nB), (m1,nB), tB, hA);
+    event acceptB2(pkB, pkA, sA);
+    event sessionKeyB(pkB, pkA, k1);
+    event SanityB(withCookie = false, (m1,m2)).
+
+table Keys(t_sk).
+
+let UniversalSystem =
+  ! (new sk:t_sk; out(c, upk(sk)); insert Keys(sk))
+  |
+  ! (get Keys(skA:t_sk) in
+     get Keys(skB:t_sk) in
+      (roleA(skA, upk(skB)) | roleB(skB, upk(skA))))
+  |
+    ! (get Keys(sk:t_sk) in event Dishonest(upk(sk)); out(c, sk)).
+
+process UniversalSystem

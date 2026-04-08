@@ -1,0 +1,77 @@
+(*************************************************************
+ *                                                           *
+ *  Cryptographic protocol verifier                          *
+ *                                                           *
+ *  Bruno Blanchet, Vincent Cheval, and Marc Sylvestre       *
+ *                                                           *
+ *  Copyright (C) INRIA, CNRS 2000-2023                      *
+ *                                                           *
+ *************************************************************)
+
+(*
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details (in file LICENSE).
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+*)
+(* Handshake protocol.
+   Taken from Delaune, Jacquemard, CSFW'04 *)
+
+type passwd.
+type nonce.
+fun nonce2bs(nonce): bitstring [typeConverter].
+
+(* shared-key encryption as equation *)
+
+fun encrypt(nonce, passwd): nonce.
+fun decrypt(nonce, passwd): nonce.
+equation forall x: nonce, y: passwd; decrypt(encrypt(x,y),y) = x.
+equation forall x: nonce, y: passwd; encrypt(decrypt(x,y),y) = x.
+
+(* addition of one *)
+
+fun incr(nonce): nonce.
+
+free c: channel.
+free pw: passwd [private].
+
+event HandshakeSent(nonce, bitstring).
+event HandshakeAccepted(nonce, bitstring).
+
+table HSTags(nonce, bitstring).
+
+query n: nonce, h: bitstring, h': bitstring;
+    event(HandshakeAccepted(n, h)) ==> event(HandshakeSent(n, h')) && eq_hash(h, h').
+
+let processA =
+    new n: nonce;
+    let m = encrypt(n, pw) in
+    out(c, m);
+    let h = buildH((nonce2bs(n), nonce2bs(incr(n)))) in
+    insert HSTags(n, h);
+    event HandshakeSent(n, h);
+    out(c, h).
+
+let processB =
+    in(c, x: nonce);
+    let y = decrypt(x, pw) in
+    let resp = encrypt(incr(y), pw) in
+    out(c, resp);
+    in(c, h: bitstring);
+    get HSTags(=y, hs: bitstring) in
+    if equal_hash(h, hs) then
+        event HandshakeAccepted(y, h).
+
+process
+    !processA | !processB

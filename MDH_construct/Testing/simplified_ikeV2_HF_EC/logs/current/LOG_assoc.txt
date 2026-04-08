@@ -1,0 +1,1891 @@
+make: Entering directory '/home/hafeez/projects/Fast_and_FuriHash/MDH_construct'
+Linear part:
+exp_ideal(exp_ideal(g,y),z) = exp_ideal(exp_ideal(g,z),y)
+Completing equations...
+Completed equations:
+exp_ideal(exp_ideal(g,y),z) = exp_ideal(exp_ideal(g,z),y)
+Convergent part: No equation.
+Completed destructors:
+(fail-any || @mayfail_v) => fail-any
+(v || @mayfail_v) => @mayfail_v if v ≠ true
+(true || @mayfail_v) => true
+
+signCheck(fail-any,@mayfail_v) => fail-any
+signCheck(v,fail-any) => fail-any
+signCheck(s,pkS) => false if (forall @gen,@gen_1, (s ≠ sign(@gen_1,@gen) | pkS ≠ pk(@gen)))
+signCheck(sign(m,sk),pk(sk)) => true
+
+sdec(v,fail-any) => fail-any
+sdec(fail-any,@mayfail_v) => fail-any
+sdec(v,v_1) => fail-any if (forall @gen, v ≠ senc(@gen,v_1))
+sdec(senc(m,k),k) => m
+
+not(fail-any) => fail-any
+not(v) => true if v ≠ true
+not(true) => false
+
+is_nat(fail-any) => fail-any
+is_nat(v) => false if is_not_nat(v)
+is_nat(v) => true if is_nat(v)
+
+isCol(fail-any) => fail-any
+isCol(x) => false if (forall @gen,@gen_1, x ≠ CPcol1(@gen_1,@gen)) && (forall @gen_2,@gen_3,@gen_4, x ≠ (CPcol1(@gen_4,@gen_3),@gen_2)) && (forall @gen_5,@gen_6,@gen_7, x ≠ (@gen_7,CPcol1(@gen_6,@gen_5))) && (forall @gen_8,@gen_9,@gen_10,@gen_11, x ≠ (@gen_11,(CPcol1(@gen_10,@gen_9),@gen_8))) && (forall @gen_12,@gen_13,@gen_14,@gen_15, x ≠ (@gen_15,(@gen_14,CPcol1(@gen_13,@gen_12)))) && (forall @gen_16,@gen_17, x ≠ CPcol2(@gen_17,@gen_16)) && (forall @gen_18,@gen_19,@gen_20, x ≠ (CPcol2(@gen_20,@gen_19),@gen_18)) && (forall @gen_21,@gen_22,@gen_23, x ≠ (@gen_23,CPcol2(@gen_22,@gen_21))) && (forall @gen_24,@gen_25,@gen_26,@gen_27, x ≠ (@gen_27,(CPcol2(@gen_26,@gen_25),@gen_24))) && (forall @gen_28,@gen_29,@gen_30,@gen_31, x ≠ (@gen_31,(@gen_30,CPcol2(@gen_29,@gen_28))))
+isCol((y,(z,CPcol2(L1,L2)))) => true if (forall @gen,@gen_1, y ≠ CPcol1(@gen_1,@gen)) && (forall @gen_2,@gen_3, z ≠ CPcol1(@gen_3,@gen_2)) && (forall @gen_4,@gen_5, y ≠ CPcol2(@gen_5,@gen_4)) && (forall @gen_6,@gen_7, z ≠ CPcol2(@gen_7,@gen_6))
+isCol((y,(CPcol2(L1,L2),z))) => true if (forall @gen,@gen_1, y ≠ CPcol1(@gen_1,@gen)) && (forall @gen_2,@gen_3, z ≠ CPcol1(@gen_3,@gen_2)) && (forall @gen_4,@gen_5, y ≠ CPcol2(@gen_5,@gen_4))
+isCol((y,CPcol2(L1,L2))) => true if (forall @gen,@gen_1, y ≠ CPcol1(@gen_1,@gen)) && (forall @gen_2,@gen_3, y ≠ CPcol2(@gen_3,@gen_2))
+isCol((CPcol2(L1,L2),y)) => true if (forall @gen,@gen_1, y ≠ CPcol1(@gen_1,@gen)) && (forall @gen_2,@gen_3,@gen_4, y ≠ (CPcol1(@gen_4,@gen_3),@gen_2)) && (forall @gen_5,@gen_6,@gen_7, y ≠ (@gen_7,CPcol1(@gen_6,@gen_5)))
+isCol(CPcol2(L1,L2)) => true
+isCol((y,(z,CPcol1(L1,L2)))) => true if (forall @gen,@gen_1, y ≠ CPcol1(@gen_1,@gen)) && (forall @gen_2,@gen_3, z ≠ CPcol1(@gen_3,@gen_2))
+isCol((y,(CPcol1(L1,L2),z))) => true if (forall @gen,@gen_1, y ≠ CPcol1(@gen_1,@gen))
+isCol((y,CPcol1(L1,L2))) => true if (forall @gen,@gen_1, y ≠ CPcol1(@gen_1,@gen))
+isCol((CPcol1(L1,L2),y)) => true
+isCol(CPcol1(L1,L2)) => true
+
+getmsg(fail-any) => fail-any
+getmsg(v) => fail-any if (forall @gen,@gen_1, v ≠ sign(@gen_1,@gen))
+getmsg(sign(m,sk)) => m
+
+exp(fail-any,@mayfail_v) => fail-any
+exp(v,fail-any) => fail-any
+exp(exp_ideal(g,y),z) => exp_ideal(exp_ideal(g,z),y) if z ≠ badElement
+exp(a,y) => exp_ideal(a,y) if y ≠ badElement && a ≠ weak
+exp(weak,y) => weak if y ≠ badElement
+exp(a,badElement) => weak
+
+(v ≥ fail-any) => fail-any
+(fail-any ≥ @mayfail_v) => fail-any
+(v ≥ v_1) => fail-any if is_not_nat(v_1)
+(v ≥ v_1) => fail-any if is_not_nat(v)
+(v ≥ v_1) => false if v_1 ≥ v + 1
+(v ≥ v_1) => true if v ≥ v_1
+
+(v > fail-any) => fail-any
+(fail-any > @mayfail_v) => fail-any
+(v > v_1) => fail-any if is_not_nat(v_1)
+(v > v_1) => fail-any if is_not_nat(v)
+(v > v_1) => false if v_1 ≥ v
+(v > v_1) => true if v ≥ v_1 + 1
+
+(v ≤ fail-any) => fail-any
+(fail-any ≤ @mayfail_v) => fail-any
+(v ≤ v_1) => fail-any if is_not_nat(v)
+(v ≤ v_1) => fail-any if is_not_nat(v_1)
+(v ≤ v_1) => false if v ≥ v_1 + 1
+(v ≤ v_1) => true if v_1 ≥ v
+
+(v < fail-any) => fail-any
+(fail-any < @mayfail_v) => fail-any
+(v < v_1) => fail-any if is_not_nat(v)
+(v < v_1) => fail-any if is_not_nat(v_1)
+(v < v_1) => false if v ≥ v_1
+(v < v_1) => true if v_1 ≥ v + 1
+
+(fail-any && @mayfail_v) => fail-any
+(v && @mayfail_v) => false if v ≠ true
+(true && @mayfail_v) => @mayfail_v
+
+Process 0 (that is, the initial process):
+(
+    {1}!
+    {2}new @1_sk: t_sk;
+    {3}out(c, pk(@1_sk));
+    {4}insert @1_Keys(@1_sk)
+) | (
+    {5}!
+    {92}get @1_Keys(@1_skA: t_sk) in
+    {91}get @1_Keys(@1_skB: t_sk) in
+    (
+        {6}let @1_pkB: t_pk = pk(@1_skB) in
+        {7}let @1_pkA: t_pk = pk(@1_skA) in
+        {8}if (pk(@1_skA) ≠ @1_pkB) then
+        {9}new @1_x: t_exponent;
+        {10}new @1_nA: bitstring;
+        {11}new @1_sA: bitstring;
+        {12}let @1_m1': bitstring = (@1_sA,(@1_nA,exp(g,@1_x))) in
+        {13}out(c, @1_m1');
+        {14}in(c, @1_mC: bitstring);
+        {15}let v: bitstring = @1_mC in
+        {16}let v_1: bool = ((SA_INIT =nf 1-proj-2-tuple(v)) && success?(1-proj-2-tuple(v))) in
+        {17}let @1_ck: bitstring = (if v_1 then 2-proj-2-tuple(v) else caught-fail) in
+        {18}let @1_cookie: bitstring = (if v_1 then @1_ck else noCookie) in
+        {19}let @1_m1: bitstring = (if (@1_cookie = noCookie) then @1_m1' else (@1_cookie,(@1_sA,(@1_nA,exp(g,@1_x))))) in
+        {20}in(c, @1_m2: bitstring);
+        {21}let (@1_sB: bitstring,(@1_nB: bitstring,@1_gy: G)) = @1_m2 in
+        {22}if ((@1_gy ≠ g) && not(isCol(@1_gy))) then
+        {23}let @1_k1: t_key = KDF(exp(@1_gy,@1_x),(@1_nA,@1_nB),1) in
+        {24}let @1_k2: t_key = KDF(exp(@1_gy,@1_x),(@1_nA,@1_nB),2) in
+        {25}let @1_kA: t_key = KDF(exp(@1_gy,@1_x),(@1_nA,@1_nB),3) in
+        {26}let @1_kB: t_key = KDF(exp(@1_gy,@1_x),(@1_nA,@1_nB),4) in
+        {27}let @1_macA: bitstring = MAC(@1_pkA,@1_kA) in
+        {28}let @1_macB: bitstring = MAC(@1_pkB,@1_kB) in
+        {29}let @1_transcriptA: bitstring = (if (@1_cookie ≠ noCookie) then (@1_cookie,(@1_sA,(@1_nA,(exp(g,@1_x),(@1_nB,@1_macA))))) else (@1_sA,(@1_nA,(exp(g,@1_x),(@1_nB,@1_macA))))) in
+        {30}let @1_H': bitstring = H((@1_transcriptA,Nil)) in
+        {31}let @1_T: bitstring = @1_H' in
+        {32}event initA(pk(@1_skA),@1_pkB,(@1_nA,@1_nB),(@1_m1,@1_nB),@1_T,@1_H');
+        {33}event initA2(pk(@1_skA),@1_sA);
+        {34}out(c, senc((@1_pkA,sign(@1_H',@1_skA)),@1_k1));
+        {35}in(c, @1_cipher: bitstring);
+        {36}let (=@1_pkB,@1_sm: bitstring) = sdec(@1_cipher,@1_k2) in
+        {37}let @1_transcriptB: bitstring = (@1_sB,(@1_nB,(@1_gy,(@1_nA,@1_macB)))) in
+        {38}let @1_hB: bitstring = H((@1_transcriptB,Nil)) in
+        {39}if signCheck(@1_sm,@1_pkB) then
+        {40}let @1_hB': bitstring = getmsg(@1_sm) in
+        {41}if eq_hash(@1_hB,@1_hB') then
+        {42}event SanityA((@1_cookie = noCookie),(@1_m1,@1_m2));
+        {43}event acceptA(pk(@1_skA),@1_pkB,(@1_nA,@1_nB),(@1_m1,@1_m2),@1_H');
+        {44}event sessionKeyA(pk(@1_skA),@1_pkB,@1_k1)
+    ) | (
+        {45}let @1_pkA_1: t_pk = pk(@1_skA) in
+        {46}let @1_pkB_1: t_pk = pk(@1_skB) in
+        {47}if (pk(@1_skB) ≠ @1_pkA_1) then
+        {48}in(c, @1_m1'_1: bitstring);
+        {49}new @1_ck_1: bitstring;
+        {50}out(c, @1_ck_1);
+        {51}in(c, @1_withCookie: bool);
+        {52}in(c, @1_mC_1: bitstring);
+        {53}let @1_m1_1: bitstring = (if @1_withCookie then @1_mC_1 else @1_m1'_1) in
+        {54}let v_2: bool = @1_withCookie in
+        {55}let v_3: bitstring = (if v_2 then catch-fail(@1_m1_1) else caught-fail) in
+        {56}let v_4: bool = (not-caught-fail(v_3) && (((@1_ck_1 =nf 1-proj-2-tuple(v_3)) && (success?(1-proj-2-tuple(2-proj-2-tuple(2-proj-2-tuple(v_3)))) && success?(1-proj-2-tuple(2-proj-2-tuple(v_3))))) && success?(1-proj-2-tuple(v_3)))) in
+        {57}let @1_gx: G = (if v_4 then 2-proj-2-tuple(2-proj-2-tuple(2-proj-2-tuple(v_3))) else caught-fail) in
+        {58}let @1_nA_1: bitstring = (if v_4 then 1-proj-2-tuple(2-proj-2-tuple(2-proj-2-tuple(v_3))) else caught-fail) in
+        {59}let @1_sA_1: bitstring = (if v_4 then 1-proj-2-tuple(2-proj-2-tuple(v_3)) else caught-fail) in
+        {60}let v_5: bitstring = (if not(v_2) then catch-fail(@1_m1_1) else caught-fail) in
+        {61}let v_6: bool = (not-caught-fail(v_5) && (success?(1-proj-2-tuple(2-proj-2-tuple(v_5))) && success?(1-proj-2-tuple(v_5)))) in
+        {62}let @1_gx_1: G = (if v_6 then 2-proj-2-tuple(2-proj-2-tuple(v_5)) else caught-fail) in
+        {63}let @1_nA_2: bitstring = (if v_6 then 1-proj-2-tuple(2-proj-2-tuple(v_5)) else caught-fail) in
+        {64}let @1_sA_2: bitstring = (if v_6 then 1-proj-2-tuple(v_5) else caught-fail) in
+        {65}let (@1_sA_3: bitstring,@1_nA_3: bitstring,@1_gx_2: G) = (if v_2 then (if v_4 then (@1_sA_1,@1_nA_1,@1_gx) else fail-any) else (if v_6 then (@1_sA_2,@1_nA_2,@1_gx_1) else fail-any)) in
+        {66}if ((@1_gx_2 ≠ g) && not(isCol(@1_gx_2))) then
+        {67}new @1_y: t_exponent;
+        {68}new @1_nB_1: bitstring;
+        {69}new @1_sB_1: bitstring;
+        {70}let @1_m2_1: bitstring = (@1_sB_1,(@1_nB_1,exp(g,@1_y))) in
+        {71}let @1_k1_1: t_key = KDF(exp(@1_gx_2,@1_y),(@1_nA_3,@1_nB_1),1) in
+        {72}let @1_k2_1: t_key = KDF(exp(@1_gx_2,@1_y),(@1_nA_3,@1_nB_1),2) in
+        {73}let @1_kA_1: t_key = KDF(exp(@1_gx_2,@1_y),(@1_nA_3,@1_nB_1),3) in
+        {74}let @1_kB_1: t_key = KDF(exp(@1_gx_2,@1_y),(@1_nA_3,@1_nB_1),4) in
+        {75}let @1_macA_1: bitstring = MAC(@1_pkA_1,@1_kA_1) in
+        {76}let @1_macB_1: bitstring = MAC(@1_pkB_1,@1_kB_1) in
+        {77}let @1_transcriptA_1: bitstring = (if @1_withCookie then (@1_ck_1,(@1_sA_3,(@1_nA_3,(@1_gx_2,(@1_nB_1,@1_macA_1))))) else (@1_sA_3,(@1_nA_3,(@1_gx_2,(@1_nB_1,@1_macA_1))))) in
+        {78}let @1_H'_1: bitstring = H((@1_transcriptA_1,Nil)) in
+        {79}event initB(pk(@1_skB),@1_pkA_1,(@1_nA_3,@1_nB_1),(@1_m1_1,@1_nB_1),@1_H'_1);
+        {80}out(c, @1_m2_1);
+        {81}in(c, @1_cipher_1: bitstring);
+        {82}let (=@1_pkA_1,@1_sm_1: bitstring) = sdec(@1_cipher_1,@1_k1_1) in
+        {83}if signCheck(@1_sm_1,@1_pkA_1) then
+        {84}let @1_hA': bitstring = getmsg(@1_sm_1) in
+        {85}if eq_hash(@1_H'_1,@1_hA') then
+        {86}let @1_T_1: bitstring = @1_H'_1 in
+        {87}event acceptB(pk(@1_skB),@1_pkA_1,(@1_nA_3,@1_nB_1),(@1_m1_1,@1_nB_1),@1_T_1,@1_H'_1);
+        {88}event acceptB2(pk(@1_skB),@1_pkA_1,@1_sA_3);
+        {89}event sessionKeyB(pk(@1_skB),@1_pkA_1,@1_k1_1);
+        {90}event SanityB((@1_withCookie = false),(@1_m1_1,@1_m2_1))
+    )
+) | (
+    {93}!
+    {96}get @1_Keys(@1_sk_1: t_sk) in
+    {94}event Dishonest(pk(@1_sk_1));
+    {95}out(c, @1_sk_1)
+)
+
+--  Process 1 (that is, process 0, with let moved downwards):
+(
+    {1}!
+    {2}new @1_sk: t_sk;
+    {3}out(c, pk(@1_sk));
+    {4}insert @1_Keys(@1_sk)
+) | (
+    {5}!
+    {92}get @1_Keys(@1_skA: t_sk) in
+    {91}get @1_Keys(@1_skB: t_sk) in
+    (
+        {6}let @1_pkB: t_pk = pk(@1_skB) in
+        {8}if (pk(@1_skA) ≠ @1_pkB) then
+        {9}new @1_x: t_exponent;
+        {10}new @1_nA: bitstring;
+        {11}new @1_sA: bitstring;
+        {12}let @1_m1': bitstring = (@1_sA,(@1_nA,exp(g,@1_x))) in
+        {13}out(c, @1_m1');
+        {14}in(c, @1_mC: bitstring);
+        {15}let v: bitstring = @1_mC in
+        {16}let v_1: bool = ((SA_INIT =nf 1-proj-2-tuple(v)) && success?(1-proj-2-tuple(v))) in
+        {17}let @1_ck: bitstring = (if v_1 then 2-proj-2-tuple(v) else caught-fail) in
+        {18}let @1_cookie: bitstring = (if v_1 then @1_ck else noCookie) in
+        {19}let @1_m1: bitstring = (if (@1_cookie = noCookie) then @1_m1' else (@1_cookie,(@1_sA,(@1_nA,exp(g,@1_x))))) in
+        {20}in(c, @1_m2: bitstring);
+        {21}let (@1_sB: bitstring,(@1_nB: bitstring,@1_gy: G)) = @1_m2 in
+        {22}if ((@1_gy ≠ g) && not(isCol(@1_gy))) then
+        {23}let @1_k1: t_key = KDF(exp(@1_gy,@1_x),(@1_nA,@1_nB),1) in
+        {24}let @1_k2: t_key = KDF(exp(@1_gy,@1_x),(@1_nA,@1_nB),2) in
+        {25}let @1_kA: t_key = KDF(exp(@1_gy,@1_x),(@1_nA,@1_nB),3) in
+        {26}let @1_kB: t_key = KDF(exp(@1_gy,@1_x),(@1_nA,@1_nB),4) in
+        {7}let @1_pkA: t_pk = pk(@1_skA) in
+        {27}let @1_macA: bitstring = MAC(@1_pkA,@1_kA) in
+        {29}let @1_transcriptA: bitstring = (if (@1_cookie ≠ noCookie) then (@1_cookie,(@1_sA,(@1_nA,(exp(g,@1_x),(@1_nB,@1_macA))))) else (@1_sA,(@1_nA,(exp(g,@1_x),(@1_nB,@1_macA))))) in
+        {30}let @1_H': bitstring = H((@1_transcriptA,Nil)) in
+        {31}let @1_T: bitstring = @1_H' in
+        {32}event initA(pk(@1_skA),@1_pkB,(@1_nA,@1_nB),(@1_m1,@1_nB),@1_T,@1_H');
+        {33}event initA2(pk(@1_skA),@1_sA);
+        {34}out(c, senc((@1_pkA,sign(@1_H',@1_skA)),@1_k1));
+        {35}in(c, @1_cipher: bitstring);
+        {36}let (=@1_pkB,@1_sm: bitstring) = sdec(@1_cipher,@1_k2) in
+        {39}if signCheck(@1_sm,@1_pkB) then
+        {40}let @1_hB': bitstring = getmsg(@1_sm) in
+        {28}let @1_macB: bitstring = MAC(@1_pkB,@1_kB) in
+        {37}let @1_transcriptB: bitstring = (@1_sB,(@1_nB,(@1_gy,(@1_nA,@1_macB)))) in
+        {38}let @1_hB: bitstring = H((@1_transcriptB,Nil)) in
+        {41}if eq_hash(@1_hB,@1_hB') then
+        {42}event SanityA((@1_cookie = noCookie),(@1_m1,@1_m2));
+        {43}event acceptA(pk(@1_skA),@1_pkB,(@1_nA,@1_nB),(@1_m1,@1_m2),@1_H');
+        {44}event sessionKeyA(pk(@1_skA),@1_pkB,@1_k1)
+    ) | (
+        {45}let @1_pkA_1: t_pk = pk(@1_skA) in
+        {47}if (pk(@1_skB) ≠ @1_pkA_1) then
+        {48}in(c, @1_m1'_1: bitstring);
+        {49}new @1_ck_1: bitstring;
+        {50}out(c, @1_ck_1);
+        {51}in(c, @1_withCookie: bool);
+        {52}in(c, @1_mC_1: bitstring);
+        {54}let v_2: bool = @1_withCookie in
+        {53}let @1_m1_1: bitstring = (if @1_withCookie then @1_mC_1 else @1_m1'_1) in
+        {55}let v_3: bitstring = (if v_2 then catch-fail(@1_m1_1) else caught-fail) in
+        {56}let v_4: bool = (not-caught-fail(v_3) && (((@1_ck_1 =nf 1-proj-2-tuple(v_3)) && (success?(1-proj-2-tuple(2-proj-2-tuple(2-proj-2-tuple(v_3)))) && success?(1-proj-2-tuple(2-proj-2-tuple(v_3))))) && success?(1-proj-2-tuple(v_3)))) in
+        {57}let @1_gx: G = (if v_4 then 2-proj-2-tuple(2-proj-2-tuple(2-proj-2-tuple(v_3))) else caught-fail) in
+        {58}let @1_nA_1: bitstring = (if v_4 then 1-proj-2-tuple(2-proj-2-tuple(2-proj-2-tuple(v_3))) else caught-fail) in
+        {59}let @1_sA_1: bitstring = (if v_4 then 1-proj-2-tuple(2-proj-2-tuple(v_3)) else caught-fail) in
+        {60}let v_5: bitstring = (if not(v_2) then catch-fail(@1_m1_1) else caught-fail) in
+        {61}let v_6: bool = (not-caught-fail(v_5) && (success?(1-proj-2-tuple(2-proj-2-tuple(v_5))) && success?(1-proj-2-tuple(v_5)))) in
+        {62}let @1_gx_1: G = (if v_6 then 2-proj-2-tuple(2-proj-2-tuple(v_5)) else caught-fail) in
+        {63}let @1_nA_2: bitstring = (if v_6 then 1-proj-2-tuple(2-proj-2-tuple(v_5)) else caught-fail) in
+        {64}let @1_sA_2: bitstring = (if v_6 then 1-proj-2-tuple(v_5) else caught-fail) in
+        {65}let (@1_sA_3: bitstring,@1_nA_3: bitstring,@1_gx_2: G) = (if v_2 then (if v_4 then (@1_sA_1,@1_nA_1,@1_gx) else fail-any) else (if v_6 then (@1_sA_2,@1_nA_2,@1_gx_1) else fail-any)) in
+        {66}if ((@1_gx_2 ≠ g) && not(isCol(@1_gx_2))) then
+        {67}new @1_y: t_exponent;
+        {68}new @1_nB_1: bitstring;
+        {69}new @1_sB_1: bitstring;
+        {70}let @1_m2_1: bitstring = (@1_sB_1,(@1_nB_1,exp(g,@1_y))) in
+        {71}let @1_k1_1: t_key = KDF(exp(@1_gx_2,@1_y),(@1_nA_3,@1_nB_1),1) in
+        {72}let @1_k2_1: t_key = KDF(exp(@1_gx_2,@1_y),(@1_nA_3,@1_nB_1),2) in
+        {73}let @1_kA_1: t_key = KDF(exp(@1_gx_2,@1_y),(@1_nA_3,@1_nB_1),3) in
+        {74}let @1_kB_1: t_key = KDF(exp(@1_gx_2,@1_y),(@1_nA_3,@1_nB_1),4) in
+        {75}let @1_macA_1: bitstring = MAC(@1_pkA_1,@1_kA_1) in
+        {77}let @1_transcriptA_1: bitstring = (if @1_withCookie then (@1_ck_1,(@1_sA_3,(@1_nA_3,(@1_gx_2,(@1_nB_1,@1_macA_1))))) else (@1_sA_3,(@1_nA_3,(@1_gx_2,(@1_nB_1,@1_macA_1))))) in
+        {78}let @1_H'_1: bitstring = H((@1_transcriptA_1,Nil)) in
+        {79}event initB(pk(@1_skB),@1_pkA_1,(@1_nA_3,@1_nB_1),(@1_m1_1,@1_nB_1),@1_H'_1);
+        {80}out(c, @1_m2_1);
+        {81}in(c, @1_cipher_1: bitstring);
+        {82}let (=@1_pkA_1,@1_sm_1: bitstring) = sdec(@1_cipher_1,@1_k1_1) in
+        {83}if signCheck(@1_sm_1,@1_pkA_1) then
+        {84}let @1_hA': bitstring = getmsg(@1_sm_1) in
+        {85}if eq_hash(@1_H'_1,@1_hA') then
+        {86}let @1_T_1: bitstring = @1_H'_1 in
+        {87}event acceptB(pk(@1_skB),@1_pkA_1,(@1_nA_3,@1_nB_1),(@1_m1_1,@1_nB_1),@1_T_1,@1_H'_1);
+        {88}event acceptB2(pk(@1_skB),@1_pkA_1,@1_sA_3);
+        {89}event sessionKeyB(pk(@1_skB),@1_pkA_1,@1_k1_1);
+        {90}event SanityB((@1_withCookie = false),(@1_m1_1,@1_m2_1))
+    )
+) | (
+    {93}!
+    {96}get @1_Keys(@1_sk_1: t_sk) in
+    {94}event Dishonest(pk(@1_sk_1));
+    {95}out(c, @1_sk_1)
+)
+
+-- Axiom eq_hash(x,h) ==> x = H(l); eq_hash(h,x) ==> x = H(l) in process 1.
+-- Axiom eq_hash(H(l1),H(l2)) ==> eq_assoc(l1,l2) in process 1.
+-- Axiom eq_assoc(Nil,l2) ==> l2 = Nil; eq_assoc(l1,Nil) ==> l1 = Nil; eq_assoc((x1,l1'),l2) ==> l2 = (x2,l2'); eq_assoc(l1,(x2,l2)) ==> l1 = (x1,l1') in process 1.
+-- Axiom eq_assoc(h,h) ==> true in process 1.
+-- Axiom eq_assoc(h1,h2) && not(is_normal_flatten(h1)) && h1' <-- flatten(h1) ==> eq_assoc(h1',h2); eq_assoc(h1,h2) && not(is_normal_flatten(h2)) && h2' <-- flatten(h2) ==> eq_assoc(h1,h2') in process 1.
+-- Axiom eq_assoc(((a,b),l),t) ==> eq_assoc((a,(b,l)),t) in process 1.
+-- Axiom eq_assoc(t,((a,b),l)) ==> eq_assoc(t,(a,(b,l))) in process 1.
+-- Axiom eq_assoc((x1,Nil),(x2,Nil)) && attacker(x1) ==> x1 = x2; eq_assoc((x1,Nil),(x2,Nil)) && attacker(x2) ==> x1 = x2 in process 1.
+-- Axiom eq_assoc((x,h1),(x,h2)) ==> eq_assoc(h1,h2); eq_assoc(h1,h2) && is_normal_flatten(h1) && is_normal_flatten(h2) && (h1',h2') <-- last_term_equal(h1,h2) ==> eq_assoc(h1',h2') in process 1.
+-- Axiom not (eq_assoc(h1,h2) && is_normal_flatten(h1) && is_normal_flatten(h2) && h1 ≠ h2 && false_hash_var(h1,h2,Nil)); not (eq_assoc(h2,h1) && is_normal_flatten(h1) && is_normal_flatten(h2) && h1 ≠ h2 && false_hash_var(h1,h2,Nil)); not (eq_assoc(h1,h2) && is_normal_flatten(h1) && is_normal_flatten(h2) && h1' <-- rev_hash(h1,Nil) && h2' <-- rev_hash(h2,Nil) && false_hash_var(h1',h2',Nil)); not (eq_assoc(h2,h1) && is_normal_flatten(h1) && is_normal_flatten(h2) && h1' <-- rev_hash(h1,Nil) && h2' <-- rev_hash(h2,Nil) && false_hash_var(h1',h2',Nil)) in process 1.
+-- Axiom not (eq_assoc(h1,h2) && all_not_var(h2) && nb_element(h2) + 1 ≤ nb_element(h1)); not (eq_assoc(h1,h2) && all_not_var(h1) && nb_element(h1) + 1 ≤ nb_element(h2)) in process 1.
+-- Axiom eq_assoc((u1,h1),(u2,h2)) && not(is_var(u1)) && not(is_var(u2)) ==> u1 = u2; eq_assoc(h1,h2) && (u1,h1') <-- rev_hash(h1,Nil) && (u2,h2') <-- rev_hash(h2,Nil) && not(is_var(u1)) && not(is_var(u2)) ==> u1 = u2 in process 1.
+-- Axiom eq_assoc((x1,h1),(x2,h2)) && is_normal_flatten((x1,h1)) && is_normal_flatten((x2,h2)) && is_var(x1) && instantiate_allowed(x1,(x2,h2)) ==> x1 = x2 || x1 = (x1',x1''); eq_assoc((x2,h2),(x1,h1)) && is_normal_flatten((x1,h1)) && is_normal_flatten((x2,h2)) && is_var(x1) && instantiate_allowed(x1,(x2,h2)) ==> x1 = x2 || x1 = (x1',x1''); eq_assoc(h1,h2) && is_normal_flatten(h1) && is_normal_flatten(h2) && (x1,h1') <-- rev_hash(h1,Nil) && (x2,h2') <-- rev_hash(h2,Nil) && is_var(x1) && instantiate_allowed(x1,(x2,h2')) ==> x1 = x2 || x1 = (x1',x1''); eq_assoc(h2,h1) && is_normal_flatten(h1) && is_normal_flatten(h2) && (x1,h1') <-- rev_hash(h1,Nil) && (x2,h2') <-- rev_hash(h2,Nil) && is_var(x1) && instantiate_allowed(x1,(x2,h2')) ==> x1 = x2 || x1 = (x1',x1'') in process 1.
+-- Axiom eq_assoc((x1,h1),(x1',h1')) && cond_var(x1',h1') && cond_var(x1,h1) ==> x1 = x1' || x1 = (x1',x2) || x1' = (x1,x2'); eq_assoc((x1,h1),(x1',h1')) && cond_var(x1',h1') && not(cond_var(x1,h1)) ==> x1 = x1' || x1 = (x1',x2); eq_assoc((x1,h1),(x1',h1')) && not(cond_var(x1',h1')) && cond_var(x1,h1) ==> x1 = x1' || x1' = (x1,x2'); eq_assoc((x1,h1),(x1',h1')) && not(cond_var(x1',h1')) && not(cond_var(x1,h1)) ==> x1 = x1' in process 1.
+-- Axiom eq_hash(H((x,Nil)),H((y,(z,Nil)))) ==> x = (z,y) in process 1.
+-- Axiom eq_hash(H((y,(z,Nil))),H((x,Nil))) ==> x = (z,y) in process 1.
+-- Axiom eq_hash(H((x,Nil)),H((y,(z,(w,Nil))))) ==> x = (w,(z,y)) in process 1.
+-- Axiom eq_hash(H((y,(z,(w,Nil)))),H((x,Nil))) ==> x = (w,(z,y)) in process 1.
+-- Axiom eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && not(is_var(x2)) ==> x1 = x2; eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && not(is_var(x1)) ==> x2 = x1; eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && is_var(x2) ==> x1 = x2; eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && is_var(x1) ==> x2 = x1 in process 1.
+-- Query event(acceptB2(B,A,sA)) ==> event(initA2(A,sA)) || event(Dishonest(B)) || event(Dishonest(A)); event(acceptB(B,A,x,y,t,h)) ==> (event(initA(A,B',x',y',t',h')) && eq_hash(t,t')) || event(Dishonest(B)) || event(Dishonest(A)); event(acceptB(B,A,x,y,t,h)) ==> (event(initA(A,B',x',y',t',h')) && eq_hash(h,h')) || event(Dishonest(B)) || event(Dishonest(A)); not event(SanityA(true,x)); not event(SanityA(false,x)); not event(SanityB(true,x)); not event(SanityB(false,x)) in process 1.
+Translating the process into Horn clauses...
+Completing...
+200 rules inserted. Base: 200 rules (32 with conclusion selected). Queue: 227 rules.
+400 rules inserted. Base: 400 rules (33 with conclusion selected). Queue: 226 rules.
+600 rules inserted. Base: 600 rules (41 with conclusion selected). Queue: 163 rules.
+800 rules inserted. Base: 794 rules (57 with conclusion selected). Queue: 78 rules.
+1000 rules inserted. Base: 915 rules (86 with conclusion selected). Queue: 73 rules.
+1200 rules inserted. Base: 1052 rules (107 with conclusion selected). Queue: 41 rules.
+Starting query event(acceptB2(B,A,sA)) ==> event(initA2(A,sA)) || event(Dishonest(B)) || event(Dishonest(A))
+goal reachable: @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && attacker(sA) && eq_assoc(Nil,Nil) -> end(acceptB2(pk(@1_sk_3),pk(@1_sk_2),sA))
+Abbreviations:
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sk_2 = @1_sk[!1 = @sid_1]
+goal reachable: @sid ≠ @sid_1 && @sid_2 ≠ @sid && begin(initA2(pk(@1_sk_2),@1_sA_4)) && begin(initA(pk(@1_sk_2),pk(@1_sk_3),(@1_nA_4,@1_nB_2),((@1_ck_2,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),@1_nB_2),H(((@1_ck_2,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_x_1),@1_y_1),(@1_nA_4,@1_nB_2),3))))))),Nil)),H(((@1_ck_2,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_x_1),@1_y_1),(@1_nA_4,@1_nB_2),3))))))),Nil)))) && attacker(@1_m1'_2) && eq_assoc(Nil,Nil) -> end(acceptB2(pk(@1_sk_4),pk(@1_sk_2),@1_sA_4))
+Abbreviations:
+@1_sk_4 = @1_sk[!1 = @sid_2]
+@1_sk_2 = @1_sk[!1 = @sid]
+@1_sk_3 = @1_sk[!1 = @sid_1]
+@1_sA_4 = @1_sA[@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_3]
+@1_nA_4 = @1_nA[@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_3]
+@1_ck_2 = @1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_4,@1_skA = @1_sk_2,!1 = @sid_4]
+@1_x_1 = @1_x[@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_3]
+@1_nB_2 = @1_nB_1[@1_mC_1 = (@1_ck_2,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_4,@1_skA = @1_sk_2,!1 = @sid_4]
+@1_y_1 = @1_y[@1_mC_1 = (@1_ck_2,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_4,@1_skA = @1_sk_2,!1 = @sid_4]
+RESULT event(acceptB2(B,A,sA)) ==> event(initA2(A,sA)) || event(Dishonest(B)) || event(Dishonest(A)) is true.
+Starting query event(acceptB(B,A,x,y,t,h)) ==> (event(initA(A,B',x',y',t',h')) && eq_hash(t,t')) || event(Dishonest(B)) || event(Dishonest(A))
+- Evaluation of ground_eq_hash(H(((@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4]),(@1_nB_1[@1_mC_1 = (@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4])))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],MAC(pk(@1_sk[!1 = @sid_1]),KDF(exp_ideal(exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4]),@1_y[@1_mC_1 = (@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4])))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2]),(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],@1_nB_1[@1_mC_1 = (@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4])))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2]),3))))))),Nil)),H(((@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4]),(@1_nB_1[@1_mC_1 = (@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4])))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],MAC(pk(@1_sk[!1 = @sid_1]),KDF(exp_ideal(exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4]),@1_y[@1_mC_1 = (@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4])))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2]),(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],@1_nB_1[@1_mC_1 = (@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4])))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2]),3))))))),Nil)))
+  Result: true
+
+goal reachable: @1_withCookie_1 ≠ true && @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && attacker(@1_mC_2) && attacker(@1_withCookie_1) && attacker(x2) && attacker(x2_1) && eq_assoc(Nil,Nil) -> end(acceptB(pk(@1_sk_3),pk(@1_sk_2),(x2_1,@1_nB_2),((x2,(x2_1,weak)),@1_nB_2),H(((x2,(x2_1,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(x2_1,@1_nB_2),3)))))),Nil)),H(((x2,(x2_1,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(x2_1,@1_nB_2),3)))))),Nil))))
+Abbreviations:
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sk_2 = @1_sk[!1 = @sid_1]
+@1_nB_2 = @1_nB_1[@1_mC_1 = @1_mC_2,@1_withCookie = @1_withCookie_1,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+goal reachable: @1_withCookie_1 ≠ true && @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && attacker(@1_mC_2) && attacker(@1_withCookie_1) && attacker(x2) && attacker(x2_1) && attacker(y) && eq_assoc(Nil,Nil) -> end(acceptB(pk(@1_sk_3),pk(@1_sk_2),(x2_1,@1_nB_2),((x2,(x2_1,exp_ideal(g,y))),@1_nB_2),H(((x2,(x2_1,(exp_ideal(g,y),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_y_1),y),(x2_1,@1_nB_2),3)))))),Nil)),H(((x2,(x2_1,(exp_ideal(g,y),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_y_1),y),(x2_1,@1_nB_2),3)))))),Nil))))
+Abbreviations:
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sk_2 = @1_sk[!1 = @sid_1]
+@1_nB_2 = @1_nB_1[@1_mC_1 = @1_mC_2,@1_withCookie = @1_withCookie_1,@1_m1'_1 = (x2,(x2_1,exp_ideal(g,y))),@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+@1_y_1 = @1_y[@1_mC_1 = @1_mC_2,@1_withCookie = @1_withCookie_1,@1_m1'_1 = (x2,(x2_1,exp_ideal(g,y))),@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+goal reachable: @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && attacker(x2) && attacker(x2_1) && attacker(@1_m1'_2) && eq_assoc(Nil,Nil) -> end(acceptB(pk(@1_sk_3),pk(@1_sk_2),(x2_1,@1_nB_2),((@1_ck_2,(x2,(x2_1,weak))),@1_nB_2),H(((@1_ck_2,(x2,(x2_1,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(x2_1,@1_nB_2),3))))))),Nil)),H(((@1_ck_2,(x2,(x2_1,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(x2_1,@1_nB_2),3))))))),Nil))))
+Abbreviations:
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sk_2 = @1_sk[!1 = @sid_1]
+@1_ck_2 = @1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+@1_nB_2 = @1_nB_1[@1_mC_1 = (@1_ck_2,(x2,(x2_1,weak))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+goal reachable: @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && attacker(x2) && attacker(x2_1) && attacker(y) && attacker(@1_m1'_2) && eq_assoc(Nil,Nil) -> end(acceptB(pk(@1_sk_3),pk(@1_sk_2),(x2_1,@1_nB_2),((@1_ck_2,(x2,(x2_1,exp_ideal(g,y)))),@1_nB_2),H(((@1_ck_2,(x2,(x2_1,(exp_ideal(g,y),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_y_1),y),(x2_1,@1_nB_2),3))))))),Nil)),H(((@1_ck_2,(x2,(x2_1,(exp_ideal(g,y),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_y_1),y),(x2_1,@1_nB_2),3))))))),Nil))))
+Abbreviations:
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sk_2 = @1_sk[!1 = @sid_1]
+@1_ck_2 = @1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+@1_nB_2 = @1_nB_1[@1_mC_1 = (@1_ck_2,(x2,(x2_1,exp_ideal(g,y)))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+@1_y_1 = @1_y[@1_mC_1 = (@1_ck_2,(x2,(x2_1,exp_ideal(g,y)))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+goal reachable: @sid ≠ @sid_1 && @sid_2 ≠ @sid && begin(initA2(pk(@1_sk_2),@1_sA_4)) && begin(initA(pk(@1_sk_2),pk(@1_sk_3),(@1_nA_4,@1_nB_2),((@1_ck_2,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),@1_nB_2),H(((@1_ck_2,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_x_1),@1_y_1),(@1_nA_4,@1_nB_2),3))))))),Nil)),H(((@1_ck_2,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_x_1),@1_y_1),(@1_nA_4,@1_nB_2),3))))))),Nil)))) && attacker(@1_m1'_2) && eq_assoc(Nil,Nil) -> end(acceptB(pk(@1_sk_4),pk(@1_sk_2),(@1_nA_4,@1_nB_2),((@1_ck_2,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),@1_nB_2),H(((@1_ck_2,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_x_1),@1_y_1),(@1_nA_4,@1_nB_2),3))))))),Nil)),H(((@1_ck_2,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_x_1),@1_y_1),(@1_nA_4,@1_nB_2),3))))))),Nil))))
+Abbreviations:
+@1_sk_4 = @1_sk[!1 = @sid_2]
+@1_sk_2 = @1_sk[!1 = @sid]
+@1_sk_3 = @1_sk[!1 = @sid_1]
+@1_nA_4 = @1_nA[@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_3]
+@1_ck_2 = @1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_4,@1_skA = @1_sk_2,!1 = @sid_4]
+@1_sA_4 = @1_sA[@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_3]
+@1_x_1 = @1_x[@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_3]
+@1_nB_2 = @1_nB_1[@1_mC_1 = (@1_ck_2,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_4,@1_skA = @1_sk_2,!1 = @sid_4]
+@1_y_1 = @1_y[@1_mC_1 = (@1_ck_2,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_4,@1_skA = @1_sk_2,!1 = @sid_4]
+RESULT event(acceptB(B,A,x,y,t,h)) ==> (event(initA(A,B',x',y',t',h')) && eq_hash(t,t')) || event(Dishonest(B)) || event(Dishonest(A)) is true.
+Starting query event(acceptB(B,A,x,y,t,h)) ==> (event(initA(A,B',x',y',t',h')) && eq_hash(h,h')) || event(Dishonest(B)) || event(Dishonest(A))
+- Evaluation of ground_eq_hash(H(((@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4]),(@1_nB_1[@1_mC_1 = (@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4])))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],MAC(pk(@1_sk[!1 = @sid_1]),KDF(exp_ideal(exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4]),@1_y[@1_mC_1 = (@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4])))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2]),(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],@1_nB_1[@1_mC_1 = (@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4])))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2]),3))))))),Nil)),H(((@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4]),(@1_nB_1[@1_mC_1 = (@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4])))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],MAC(pk(@1_sk[!1 = @sid_1]),KDF(exp_ideal(exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4]),@1_y[@1_mC_1 = (@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4])))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2]),(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],@1_nB_1[@1_mC_1 = (@1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2],(@1_sA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],(@1_nA[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4],exp_ideal(g,@1_x[@1_skB = @1_sk[!1 = @sid_3],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_4])))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk[!1 = @sid],@1_skA = @1_sk[!1 = @sid_1],!1 = @sid_2]),3))))))),Nil)))
+  Result: true
+
+goal reachable: @1_withCookie_1 ≠ true && @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && attacker(@1_mC_2) && attacker(@1_withCookie_1) && attacker(x2) && attacker(x2_1) && eq_assoc(Nil,Nil) -> end(acceptB(pk(@1_sk_3),pk(@1_sk_2),(x2_1,@1_nB_2),((x2,(x2_1,weak)),@1_nB_2),H(((x2,(x2_1,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(x2_1,@1_nB_2),3)))))),Nil)),H(((x2,(x2_1,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(x2_1,@1_nB_2),3)))))),Nil))))
+Abbreviations:
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sk_2 = @1_sk[!1 = @sid_1]
+@1_nB_2 = @1_nB_1[@1_mC_1 = @1_mC_2,@1_withCookie = @1_withCookie_1,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+goal reachable: @1_withCookie_1 ≠ true && @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && attacker(@1_mC_2) && attacker(@1_withCookie_1) && attacker(x2) && attacker(x2_1) && attacker(y) && eq_assoc(Nil,Nil) -> end(acceptB(pk(@1_sk_3),pk(@1_sk_2),(x2_1,@1_nB_2),((x2,(x2_1,exp_ideal(g,y))),@1_nB_2),H(((x2,(x2_1,(exp_ideal(g,y),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_y_1),y),(x2_1,@1_nB_2),3)))))),Nil)),H(((x2,(x2_1,(exp_ideal(g,y),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_y_1),y),(x2_1,@1_nB_2),3)))))),Nil))))
+Abbreviations:
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sk_2 = @1_sk[!1 = @sid_1]
+@1_nB_2 = @1_nB_1[@1_mC_1 = @1_mC_2,@1_withCookie = @1_withCookie_1,@1_m1'_1 = (x2,(x2_1,exp_ideal(g,y))),@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+@1_y_1 = @1_y[@1_mC_1 = @1_mC_2,@1_withCookie = @1_withCookie_1,@1_m1'_1 = (x2,(x2_1,exp_ideal(g,y))),@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+goal reachable: @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && attacker(x2) && attacker(x2_1) && attacker(@1_m1'_2) && eq_assoc(Nil,Nil) -> end(acceptB(pk(@1_sk_3),pk(@1_sk_2),(x2_1,@1_nB_2),((@1_ck_2,(x2,(x2_1,weak))),@1_nB_2),H(((@1_ck_2,(x2,(x2_1,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(x2_1,@1_nB_2),3))))))),Nil)),H(((@1_ck_2,(x2,(x2_1,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(x2_1,@1_nB_2),3))))))),Nil))))
+Abbreviations:
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sk_2 = @1_sk[!1 = @sid_1]
+@1_ck_2 = @1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+@1_nB_2 = @1_nB_1[@1_mC_1 = (@1_ck_2,(x2,(x2_1,weak))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+goal reachable: @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && attacker(x2) && attacker(x2_1) && attacker(y) && attacker(@1_m1'_2) && eq_assoc(Nil,Nil) -> end(acceptB(pk(@1_sk_3),pk(@1_sk_2),(x2_1,@1_nB_2),((@1_ck_2,(x2,(x2_1,exp_ideal(g,y)))),@1_nB_2),H(((@1_ck_2,(x2,(x2_1,(exp_ideal(g,y),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_y_1),y),(x2_1,@1_nB_2),3))))))),Nil)),H(((@1_ck_2,(x2,(x2_1,(exp_ideal(g,y),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_y_1),y),(x2_1,@1_nB_2),3))))))),Nil))))
+Abbreviations:
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sk_2 = @1_sk[!1 = @sid_1]
+@1_ck_2 = @1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+@1_nB_2 = @1_nB_1[@1_mC_1 = (@1_ck_2,(x2,(x2_1,exp_ideal(g,y)))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+@1_y_1 = @1_y[@1_mC_1 = (@1_ck_2,(x2,(x2_1,exp_ideal(g,y)))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+goal reachable: @sid ≠ @sid_1 && @sid_2 ≠ @sid && begin(initA2(pk(@1_sk_2),@1_sA_4)) && begin(initA(pk(@1_sk_2),pk(@1_sk_3),(@1_nA_4,@1_nB_2),((@1_ck_2,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),@1_nB_2),H(((@1_ck_2,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_x_1),@1_y_1),(@1_nA_4,@1_nB_2),3))))))),Nil)),H(((@1_ck_2,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_x_1),@1_y_1),(@1_nA_4,@1_nB_2),3))))))),Nil)))) && attacker(@1_m1'_2) && eq_assoc(Nil,Nil) -> end(acceptB(pk(@1_sk_4),pk(@1_sk_2),(@1_nA_4,@1_nB_2),((@1_ck_2,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),@1_nB_2),H(((@1_ck_2,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_x_1),@1_y_1),(@1_nA_4,@1_nB_2),3))))))),Nil)),H(((@1_ck_2,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(@1_nB_2,MAC(pk(@1_sk_2),KDF(exp_ideal(exp_ideal(g,@1_x_1),@1_y_1),(@1_nA_4,@1_nB_2),3))))))),Nil))))
+Abbreviations:
+@1_sk_4 = @1_sk[!1 = @sid_2]
+@1_sk_2 = @1_sk[!1 = @sid]
+@1_sk_3 = @1_sk[!1 = @sid_1]
+@1_nA_4 = @1_nA[@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_3]
+@1_ck_2 = @1_ck_1[@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_4,@1_skA = @1_sk_2,!1 = @sid_4]
+@1_sA_4 = @1_sA[@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_3]
+@1_x_1 = @1_x[@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_3]
+@1_nB_2 = @1_nB_1[@1_mC_1 = (@1_ck_2,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_4,@1_skA = @1_sk_2,!1 = @sid_4]
+@1_y_1 = @1_y[@1_mC_1 = (@1_ck_2,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),@1_withCookie = true,@1_m1'_1 = @1_m1'_2,@1_skB = @1_sk_4,@1_skA = @1_sk_2,!1 = @sid_4]
+RESULT event(acceptB(B,A,x,y,t,h)) ==> (event(initA(A,B',x',y',t',h')) && eq_hash(h,h')) || event(Dishonest(B)) || event(Dishonest(A)) is true.
+Starting query not event(SanityA(true,x))
+goal reachable: @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && begin(initA2(pk(@1_sk_3),@1_sA_4)) && begin(initA(pk(@1_sk_3),pk(@1_sk_2),(@1_nA_4,x2),((@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))),x2),H(((@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(x2,MAC(pk(@1_sk_3),KDF(weak,(@1_nA_4,x2),3)))))),Nil)),H(((@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(x2,MAC(pk(@1_sk_3),KDF(weak,(@1_nA_4,x2),3)))))),Nil)))) && attacker(x2_1) && attacker(x2) && eq_assoc(Nil,Nil) -> end(SanityA(true,((@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))),(x2_1,(x2,weak)))))
+Abbreviations:
+@1_sk_2 = @1_sk[!1 = @sid_1]
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sA_4 = @1_sA[@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+@1_nA_4 = @1_nA[@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+@1_x_1 = @1_x[@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+
+Derivation:
+Abbreviations:
+@1_sk_2 = @1_sk[!1 = @sid]
+@1_sk_3 = @1_sk[!1 = @sid_1]
+@1_sA_4 = @1_sA[@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+@1_nA_4 = @1_nA[@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+@1_x_1 = @1_x[@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+
+1. The entry @1_Keys(@1_sk_3) may be inserted in a table at insert {4}.
+table(@1_Keys(@1_sk_3)).
+
+2. The entry @1_Keys(@1_sk_2) may be inserted in a table at insert {4}.
+table(@1_Keys(@1_sk_2)).
+
+3. The attacker has some term @1_mC_2.
+attacker(@1_mC_2).
+
+4. Using the function weak the attacker may obtain weak.
+attacker(weak).
+
+5. We assume as hypothesis that
+attacker(x2).
+
+6. By 5, the attacker may know x2.
+By 4, the attacker may know weak.
+Using the function 2-tuple the attacker may obtain (x2,weak).
+attacker((x2,weak)).
+
+7. We assume as hypothesis that
+attacker(x2_1).
+
+8. By 7, the attacker may know x2_1.
+By 6, the attacker may know (x2,weak).
+Using the function 2-tuple the attacker may obtain (x2_1,(x2,weak)).
+attacker((x2_1,(x2,weak))).
+
+9. Using the function 0 the attacker may obtain 0.
+attacker(0).
+
+10. By 9, the attacker may know 0.
+Using the function + the attacker may obtain 1.
+attacker(1).
+
+11. By 10, the attacker may know 1.
+Using the function + the attacker may obtain 2.
+attacker(2).
+
+12. The entry @1_Keys(@1_sk_3) that may be in a table by 1 may be read at get {92}.
+The entry @1_Keys(@1_sk_2) that may be in a table by 2 may be read at get {91}.
+We have @1_sk_3 ≠ @1_sk_2.
+So the message (@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))) may be sent to the attacker at output {13}.
+attacker((@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))).
+
+13. By 12, the attacker may know (@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))).
+Using the function 2-proj-2-tuple the attacker may obtain (@1_nA_4,exp_ideal(g,@1_x_1)).
+attacker((@1_nA_4,exp_ideal(g,@1_x_1))).
+
+14. By 13, the attacker may know (@1_nA_4,exp_ideal(g,@1_x_1)).
+Using the function 1-proj-2-tuple the attacker may obtain @1_nA_4.
+attacker(@1_nA_4).
+
+15. By 14, the attacker may know @1_nA_4.
+By 5, the attacker may know x2.
+Using the function 2-tuple the attacker may obtain (@1_nA_4,x2).
+attacker((@1_nA_4,x2)).
+
+16. By 4, the attacker may know weak.
+By 15, the attacker may know (@1_nA_4,x2).
+By 11, the attacker may know 2.
+Using the function KDF the attacker may obtain KDF(weak,(@1_nA_4,x2),2).
+attacker(KDF(weak,(@1_nA_4,x2),2)).
+
+17. The entry @1_Keys(@1_sk_2) that may be in a table by 2 may be read at get {96}.
+The event Dishonest(pk(@1_sk_2)) may be executed at {94}.
+So the message @1_sk_2 may be sent to the attacker at output {95}.
+attacker(@1_sk_2).
+
+18. Using the function Nil the attacker may obtain Nil.
+attacker(Nil).
+
+19. By 11, the attacker may know 2.
+Using the function + the attacker may obtain 3.
+attacker(3).
+
+20. By 19, the attacker may know 3.
+Using the function + the attacker may obtain 4.
+attacker(4).
+
+21. By 4, the attacker may know weak.
+By 15, the attacker may know (@1_nA_4,x2).
+By 20, the attacker may know 4.
+Using the function KDF the attacker may obtain KDF(weak,(@1_nA_4,x2),4).
+attacker(KDF(weak,(@1_nA_4,x2),4)).
+
+22. By 17, the attacker may know @1_sk_2.
+Using the function pk the attacker may obtain pk(@1_sk_2).
+attacker(pk(@1_sk_2)).
+
+23. By 22, the attacker may know pk(@1_sk_2).
+By 21, the attacker may know KDF(weak,(@1_nA_4,x2),4).
+Using the function MAC the attacker may obtain MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)).
+attacker(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4))).
+
+24. By 23, the attacker may know MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)).
+By 18, the attacker may know Nil.
+Using the function 2-tuple the attacker may obtain (MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil).
+attacker((MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)).
+
+25. By 14, the attacker may know @1_nA_4.
+By 24, the attacker may know (MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil).
+Using the function 2-tuple the attacker may obtain (@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)).
+attacker((@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))).
+
+26. By 4, the attacker may know weak.
+By 25, the attacker may know (@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)).
+Using the function 2-tuple the attacker may obtain (weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))).
+attacker((weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))).
+
+27. By 5, the attacker may know x2.
+By 26, the attacker may know (weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))).
+Using the function 2-tuple the attacker may obtain (x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))).
+attacker((x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))))).
+
+28. By 7, the attacker may know x2_1.
+By 27, the attacker may know (x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))).
+Using the function 2-tuple the attacker may obtain (x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))))).
+attacker((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))).
+
+29. By 28, the attacker may know (x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))))).
+Using the function H the attacker may obtain H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))).
+attacker(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))))))).
+
+30. By 29, the attacker may know H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))).
+By 17, the attacker may know @1_sk_2.
+Using the function sign the attacker may obtain sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2).
+attacker(sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2)).
+
+31. By 22, the attacker may know pk(@1_sk_2).
+By 30, the attacker may know sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2).
+Using the function 2-tuple the attacker may obtain (pk(@1_sk_2),sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2)).
+attacker((pk(@1_sk_2),sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2))).
+
+32. By 31, the attacker may know (pk(@1_sk_2),sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2)).
+By 16, the attacker may know KDF(weak,(@1_nA_4,x2),2).
+Using the function senc the attacker may obtain senc((pk(@1_sk_2),sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2)),KDF(weak,(@1_nA_4,x2),2)).
+attacker(senc((pk(@1_sk_2),sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2)),KDF(weak,(@1_nA_4,x2),2))).
+
+33. We assume as hypothesis that
+eq_hash(H(((x2_1,(x2,(weak,(@1_nA_4,MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)))))),Nil)),H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))))))).
+
+34. The entry @1_Keys(@1_sk_3) that may be in a table by 1 may be read at get {92}.
+The entry @1_Keys(@1_sk_2) that may be in a table by 2 may be read at get {91}.
+The message @1_mC_2 that the attacker may have by 3 may be received at input {14}.
+The message (x2_1,(x2,weak)) that the attacker may have by 8 may be received at input {20}.
+The event initA(pk(@1_sk_3),pk(@1_sk_2),(@1_nA_4,x2),((@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))),x2),H(((@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(x2,MAC(pk(@1_sk_3),KDF(weak,(@1_nA_4,x2),3)))))),Nil)),H(((@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(x2,MAC(pk(@1_sk_3),KDF(weak,(@1_nA_4,x2),3)))))),Nil))) may be executed at {32}.
+The event initA2(pk(@1_sk_3),@1_sA_4) may be executed at {33}.
+The message senc((pk(@1_sk_2),sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2)),KDF(weak,(@1_nA_4,x2),2)) that the attacker may have by 32 may be received at input {35}.
+By 33, eq_hash(H(((x2_1,(x2,(weak,(@1_nA_4,MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)))))),Nil)),H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))))))) is true at {41}.
+We have (forall @gen,@gen_1, @1_mC_2 ≠ (@gen_1,@gen)) && @1_sk_3 ≠ @1_sk_2.
+So event SanityA(true,((@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))),(x2_1,(x2,weak)))) may be executed at {42}.
+end(SanityA(true,((@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))),(x2_1,(x2,weak))))).
+
+35. By 34, end(SanityA(true,((@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))),(x2_1,(x2,weak))))).
+The goal is reached, represented in the following fact:
+end(SanityA(true,((@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))),(x2_1,(x2,weak))))).
+
+
+- Evaluation of ground_eq_hash(H(((a[],(a_1[],(weak,(@1_nA_4[],MAC(pk(@1_sk_2[]),KDF(weak,(@1_nA_4[],a_1[]),4)))))),Nil)),H((a[],(a_1[],(weak,(@1_nA_4[],(MAC(pk(@1_sk_2[]),KDF(weak,(@1_nA_4[],a_1[]),4)),Nil)))))))
+  Result: true
+
+A more detailed output of the traces is available with
+  set traceDisplay = long.
+
+new @1_sk: t_sk creating @1_sk_2 at {2} in copy a
+
+out(c, ~M) with ~M = pk(@1_sk_2) at {3} in copy a
+
+insert @1_Keys(@1_sk_2) at {4} in copy a
+
+new @1_sk: t_sk creating @1_sk_3 at {2} in copy a_1
+
+out(c, ~M_1) with ~M_1 = pk(@1_sk_3) at {3} in copy a_1
+
+insert @1_Keys(@1_sk_3) at {4} in copy a_1
+
+get @1_Keys(@1_sk_2) at {92} in copy a_2
+
+get @1_Keys(@1_sk_3) at {91} in copy a_2
+
+new @1_x: t_exponent creating @1_x_1 at {9} in copy a_2
+
+new @1_nA: bitstring creating @1_nA_4 at {10} in copy a_2
+
+new @1_sA: bitstring creating @1_sA_4 at {11} in copy a_2
+
+out(c, (~M_2,(~M_3,~M_4))) with ~M_2 = @1_sA_4, ~M_3 = @1_nA_4, ~M_4 = exp_ideal(g,@1_x_1) at {13} in copy a_2
+
+in(c, a_3) at {14} in copy a_2
+
+in(c, (a_4,(a_5,weak))) at {20} in copy a_2
+
+event initA(pk(@1_sk_2),pk(@1_sk_3),(@1_nA_4,a_5),((@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))),a_5),H(((@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(a_5,MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,a_5),3)))))),Nil)),H(((@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(a_5,MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,a_5),3)))))),Nil))) at {32} in copy a_2
+
+event initA2(pk(@1_sk_2),@1_sA_4) at {33} in copy a_2
+
+out(c, ~M_5) with ~M_5 = senc((pk(@1_sk_2),sign(H(((@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(a_5,MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,a_5),3)))))),Nil)),@1_sk_2)),KDF(weak,(@1_nA_4,a_5),1)) at {34} in copy a_2
+
+get @1_Keys(@1_sk_3) at {96} in copy a_6
+
+event Dishonest(pk(@1_sk_3)) at {94} in copy a_6
+
+out(c, ~M_6) with ~M_6 = @1_sk_3 at {95} in copy a_6
+
+in(c, senc((~M_1,sign(H((a_4,(a_5,(weak,(~M_3,(MAC(~M_1,KDF(weak,(~M_3,a_5),4)),Nil)))))),~M_6)),KDF(weak,(~M_3,a_5),2))) with senc((~M_1,sign(H((a_4,(a_5,(weak,(~M_3,(MAC(~M_1,KDF(weak,(~M_3,a_5),4)),Nil)))))),~M_6)),KDF(weak,(~M_3,a_5),2)) = senc((pk(@1_sk_3),sign(H((a_4,(a_5,(weak,(@1_nA_4,(MAC(pk(@1_sk_3),KDF(weak,(@1_nA_4,a_5),4)),Nil)))))),@1_sk_3)),KDF(weak,(@1_nA_4,a_5),2)) at {35} in copy a_2
+
+event SanityA(true,((@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))),(a_4,(a_5,weak)))) at {42} in copy a_2 (goal)
+
+The event SanityA(true,((@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))),(a_4,(a_5,weak)))) is executed at {42} in copy a_2.
+A trace has been found.
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 343, characters 3-83, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && is_var(x1) ==> x2 = x1
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 342, characters 3-83, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && is_var(x2) ==> x1 = x2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 337, characters 3-88, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && not(is_var(x1)) ==> x2 = x1
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 336, characters 3-88, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && not(is_var(x2)) ==> x1 = x2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 320, character 3 - line 321, character 19, is satisfied by the attack trace.
+eq_hash(H((y,(z,(w,Nil)))),H((x,Nil))) ==> x = (w,(z,y))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 316, character 3 - line 317, character 19, is satisfied by the attack trace.
+eq_hash(H((x_1,Nil)),H((y_1,(z_1,(w_1,Nil))))) ==> x_1 = (w_1,(z_1,y_1))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 310, character 3 - line 311, character 14, is satisfied by the attack trace.
+eq_hash(H((y_2,(z_2,Nil))),H((x_2,Nil))) ==> x_2 = (z_2,y_2)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 306, character 3 - line 307, character 14, is satisfied by the attack trace.
+eq_hash(H((x_3,Nil)),H((y_3,(z_3,Nil)))) ==> x_3 = (z_3,y_3)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 294, characters 3-92, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && not(cond_var(x1',h1')) && not(cond_var(x1_1,h1_1)) ==> x1_1 = x1'
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 293, characters 3-105, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && not(cond_var(x1',h1')) && cond_var(x1_1,h1_1) ==> x1_1 = x1' || x1' = (x1_1,x2')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 292, characters 3-104, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && cond_var(x1',h1') && not(cond_var(x1_1,h1_1)) ==> x1_1 = x1' || x1_1 = (x1',x2_1)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 291, characters 3-117, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && cond_var(x1',h1') && cond_var(x1_1,h1_1) ==> x1_1 = x1' || x1_1 = (x1',x2_1) || x1' = (x1_1,x2')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 260, characters 3-215, is satisfied by the attack trace.
+eq_assoc(h2_1,h1_2) && is_normal_flatten(h1_2) && is_normal_flatten(h2_1) && (x1_2,h1'_1) <-- rev_hash(h1_2,Nil) && (x2_2,h2') <-- rev_hash(h2_1,Nil) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2')) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 259, characters 3-215, is satisfied by the attack trace.
+eq_assoc(h1_2,h2_1) && is_normal_flatten(h1_2) && is_normal_flatten(h2_1) && (x1_2,h1'_1) <-- rev_hash(h1_2,Nil) && (x2_2,h2') <-- rev_hash(h2_1,Nil) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2')) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 258, characters 3-167, is satisfied by the attack trace.
+eq_assoc((x2_2,h2_1),(x1_2,h1_2)) && is_normal_flatten((x1_2,h1_2)) && is_normal_flatten((x2_2,h2_1)) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2_1)) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 257, characters 3-167, is satisfied by the attack trace.
+eq_assoc((x1_2,h1_2),(x2_2,h2_1)) && is_normal_flatten((x1_2,h1_2)) && is_normal_flatten((x2_2,h2_1)) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2_1)) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 238, characters 3-133, is satisfied by the attack trace.
+eq_assoc(h1_3,h2_2) && (u1,h1'_2) <-- rev_hash(h1_3,Nil) && (u2,h2'_1) <-- rev_hash(h2_2,Nil) && not(is_var(u1)) && not(is_var(u2)) ==> u1 = u2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 237, characters 3-77, is satisfied by the attack trace.
+eq_assoc((u1,h1_3),(u2,h2_2)) && not(is_var(u1)) && not(is_var(u2)) ==> u1 = u2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 227, characters 3-81, is satisfied by the attack trace.
+not (eq_assoc(h1_4,h2_3) && all_not_var(h1_4) && nb_element(h1_4) + 1 ≤ nb_element(h2_3))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 226, characters 3-81, is satisfied by the attack trace.
+not (eq_assoc(h1_4,h2_3) && all_not_var(h2_3) && nb_element(h2_3) + 1 ≤ nb_element(h1_4))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 202, characters 3-164, is satisfied by the attack trace.
+not (eq_assoc(h2_4,h1_5) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1'_3 <-- rev_hash(h1_5,Nil) && h2'_2 <-- rev_hash(h2_4,Nil) && false_hash_var(h1'_3,h2'_2,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 201, characters 3-164, is satisfied by the attack trace.
+not (eq_assoc(h1_5,h2_4) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1'_3 <-- rev_hash(h1_5,Nil) && h2'_2 <-- rev_hash(h2_4,Nil) && false_hash_var(h1'_3,h2'_2,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 200, characters 3-118, is satisfied by the attack trace.
+not (eq_assoc(h2_4,h1_5) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1_5 ≠ h2_4 && false_hash_var(h1_5,h2_4,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 199, characters 3-118, is satisfied by the attack trace.
+not (eq_assoc(h1_5,h2_4) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1_5 ≠ h2_4 && false_hash_var(h1_5,h2_4,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 141, characters 3-129, is satisfied by the attack trace.
+eq_assoc(h1_6,h2_5) && is_normal_flatten(h1_6) && is_normal_flatten(h2_5) && (h1'_4,h2'_3) <-- last_term_equal(h1_6,h2_5) ==> eq_assoc(h1'_4,h2'_3)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 140, characters 3-45, is satisfied by the attack trace.
+eq_assoc((x_4,h1_6),(x_4,h2_5)) ==> eq_assoc(h1_6,h2_5)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 103, characters 3-57, is satisfied by the attack trace.
+eq_assoc((x1_3,Nil),(x2_3,Nil)) && attacker(x2_3) ==> x1_3 = x2_3
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 102, characters 3-57, is satisfied by the attack trace.
+eq_assoc((x1_3,Nil),(x2_3,Nil)) && attacker(x1_3) ==> x1_3 = x2_3
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 97, characters 3-55, is satisfied by the attack trace.
+eq_assoc(t,((a_7,b),l)) ==> eq_assoc(t,(a_7,(b,l)))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 94, characters 3-55, is satisfied by the attack trace.
+eq_assoc(((a_8,b_1),l_1),t_1) ==> eq_assoc((a_8,(b_1,l_1)),t_1)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 81, characters 3-91, is satisfied by the attack trace.
+eq_assoc(h1_7,h2_6) && not(is_normal_flatten(h2_6)) && h2'_4 <-- flatten(h2_6) ==> eq_assoc(h1_7,h2'_4)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 80, characters 3-91, is satisfied by the attack trace.
+eq_assoc(h1_7,h2_6) && not(is_normal_flatten(h1_7)) && h1'_5 <-- flatten(h1_7) ==> eq_assoc(h1'_5,h2_6)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 76, characters 3-25, is satisfied by the attack trace.
+eq_assoc(h,h) ==> true
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 58, characters 3-40, is satisfied by the attack trace.
+eq_assoc(l1,(x2_4,l2)) ==> l1 = (x1_4,l1')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 57, characters 3-41, is satisfied by the attack trace.
+eq_assoc((x1_4,l1'),l2) ==> l2 = (x2_4,l2')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 56, characters 3-31, is satisfied by the attack trace.
+eq_assoc(l1,Nil) ==> l1 = Nil
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 55, characters 3-31, is satisfied by the attack trace.
+eq_assoc(Nil,l2) ==> l2 = Nil
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 50, characters 3-42, is satisfied by the attack trace.
+eq_hash(H(l1_1),H(l2_1)) ==> eq_assoc(l1_1,l2_1)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 47, characters 3-27, is satisfied by the attack trace.
+eq_hash(h_1,x_5) ==> x_5 = H(l_2)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 46, characters 3-27, is satisfied by the attack trace.
+eq_hash(x_5,h_1) ==> x_5 = H(l_2)
+RESULT not event(SanityA(true,x)) is false.
+Starting query not event(SanityA(false,x))
+goal reachable: @1_cookie_1 ≠ noCookie && @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && begin(initA2(pk(@1_sk_3),@1_sA_4)) && begin(initA(pk(@1_sk_3),pk(@1_sk_2),(@1_nA_4,x2),((@1_cookie_1,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),x2),H(((@1_cookie_1,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(x2,MAC(pk(@1_sk_3),KDF(weak,(@1_nA_4,x2),3))))))),Nil)),H(((@1_cookie_1,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(x2,MAC(pk(@1_sk_3),KDF(weak,(@1_nA_4,x2),3))))))),Nil)))) && attacker(x2_1) && attacker(x2) && attacker(@1_cookie_1) && eq_assoc(Nil,Nil) -> end(SanityA(false,((@1_cookie_1,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),(x2_1,(x2,weak)))))
+Abbreviations:
+@1_sk_2 = @1_sk[!1 = @sid_1]
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sA_4 = @1_sA[@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+@1_nA_4 = @1_nA[@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+@1_x_1 = @1_x[@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+
+Derivation:
+Abbreviations:
+@1_sk_2 = @1_sk[!1 = @sid]
+@1_sk_3 = @1_sk[!1 = @sid_1]
+@1_sA_4 = @1_sA[@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+@1_nA_4 = @1_nA[@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+@1_x_1 = @1_x[@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+
+1. The entry @1_Keys(@1_sk_3) may be inserted in a table at insert {4}.
+table(@1_Keys(@1_sk_3)).
+
+2. The entry @1_Keys(@1_sk_2) may be inserted in a table at insert {4}.
+table(@1_Keys(@1_sk_2)).
+
+3. We assume as hypothesis that
+attacker(@1_cookie_1).
+
+4. Using the function SA_INIT the attacker may obtain SA_INIT.
+attacker(SA_INIT).
+
+5. By 4, the attacker may know SA_INIT.
+By 3, the attacker may know @1_cookie_1.
+Using the function 2-tuple the attacker may obtain (SA_INIT,@1_cookie_1).
+attacker((SA_INIT,@1_cookie_1)).
+
+6. Using the function weak the attacker may obtain weak.
+attacker(weak).
+
+7. We assume as hypothesis that
+attacker(x2).
+
+8. By 7, the attacker may know x2.
+By 6, the attacker may know weak.
+Using the function 2-tuple the attacker may obtain (x2,weak).
+attacker((x2,weak)).
+
+9. We assume as hypothesis that
+attacker(x2_1).
+
+10. By 9, the attacker may know x2_1.
+By 8, the attacker may know (x2,weak).
+Using the function 2-tuple the attacker may obtain (x2_1,(x2,weak)).
+attacker((x2_1,(x2,weak))).
+
+11. Using the function 0 the attacker may obtain 0.
+attacker(0).
+
+12. By 11, the attacker may know 0.
+Using the function + the attacker may obtain 1.
+attacker(1).
+
+13. By 12, the attacker may know 1.
+Using the function + the attacker may obtain 2.
+attacker(2).
+
+14. The entry @1_Keys(@1_sk_3) that may be in a table by 1 may be read at get {92}.
+The entry @1_Keys(@1_sk_2) that may be in a table by 2 may be read at get {91}.
+We have @1_sk_3 ≠ @1_sk_2.
+So the message (@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))) may be sent to the attacker at output {13}.
+attacker((@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))).
+
+15. By 14, the attacker may know (@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1))).
+Using the function 2-proj-2-tuple the attacker may obtain (@1_nA_4,exp_ideal(g,@1_x_1)).
+attacker((@1_nA_4,exp_ideal(g,@1_x_1))).
+
+16. By 15, the attacker may know (@1_nA_4,exp_ideal(g,@1_x_1)).
+Using the function 1-proj-2-tuple the attacker may obtain @1_nA_4.
+attacker(@1_nA_4).
+
+17. By 16, the attacker may know @1_nA_4.
+By 7, the attacker may know x2.
+Using the function 2-tuple the attacker may obtain (@1_nA_4,x2).
+attacker((@1_nA_4,x2)).
+
+18. By 6, the attacker may know weak.
+By 17, the attacker may know (@1_nA_4,x2).
+By 13, the attacker may know 2.
+Using the function KDF the attacker may obtain KDF(weak,(@1_nA_4,x2),2).
+attacker(KDF(weak,(@1_nA_4,x2),2)).
+
+19. The entry @1_Keys(@1_sk_2) that may be in a table by 2 may be read at get {96}.
+The event Dishonest(pk(@1_sk_2)) may be executed at {94}.
+So the message @1_sk_2 may be sent to the attacker at output {95}.
+attacker(@1_sk_2).
+
+20. Using the function Nil the attacker may obtain Nil.
+attacker(Nil).
+
+21. By 13, the attacker may know 2.
+Using the function + the attacker may obtain 3.
+attacker(3).
+
+22. By 21, the attacker may know 3.
+Using the function + the attacker may obtain 4.
+attacker(4).
+
+23. By 6, the attacker may know weak.
+By 17, the attacker may know (@1_nA_4,x2).
+By 22, the attacker may know 4.
+Using the function KDF the attacker may obtain KDF(weak,(@1_nA_4,x2),4).
+attacker(KDF(weak,(@1_nA_4,x2),4)).
+
+24. By 19, the attacker may know @1_sk_2.
+Using the function pk the attacker may obtain pk(@1_sk_2).
+attacker(pk(@1_sk_2)).
+
+25. By 24, the attacker may know pk(@1_sk_2).
+By 23, the attacker may know KDF(weak,(@1_nA_4,x2),4).
+Using the function MAC the attacker may obtain MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)).
+attacker(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4))).
+
+26. By 25, the attacker may know MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)).
+By 20, the attacker may know Nil.
+Using the function 2-tuple the attacker may obtain (MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil).
+attacker((MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)).
+
+27. By 16, the attacker may know @1_nA_4.
+By 26, the attacker may know (MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil).
+Using the function 2-tuple the attacker may obtain (@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)).
+attacker((@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))).
+
+28. By 6, the attacker may know weak.
+By 27, the attacker may know (@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)).
+Using the function 2-tuple the attacker may obtain (weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))).
+attacker((weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))).
+
+29. By 7, the attacker may know x2.
+By 28, the attacker may know (weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))).
+Using the function 2-tuple the attacker may obtain (x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))).
+attacker((x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))))).
+
+30. By 9, the attacker may know x2_1.
+By 29, the attacker may know (x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))).
+Using the function 2-tuple the attacker may obtain (x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))))).
+attacker((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))).
+
+31. By 30, the attacker may know (x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))))).
+Using the function H the attacker may obtain H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))).
+attacker(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))))))).
+
+32. By 31, the attacker may know H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))).
+By 19, the attacker may know @1_sk_2.
+Using the function sign the attacker may obtain sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2).
+attacker(sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2)).
+
+33. By 24, the attacker may know pk(@1_sk_2).
+By 32, the attacker may know sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2).
+Using the function 2-tuple the attacker may obtain (pk(@1_sk_2),sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2)).
+attacker((pk(@1_sk_2),sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2))).
+
+34. By 33, the attacker may know (pk(@1_sk_2),sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2)).
+By 18, the attacker may know KDF(weak,(@1_nA_4,x2),2).
+Using the function senc the attacker may obtain senc((pk(@1_sk_2),sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2)),KDF(weak,(@1_nA_4,x2),2)).
+attacker(senc((pk(@1_sk_2),sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2)),KDF(weak,(@1_nA_4,x2),2))).
+
+35. We assume as hypothesis that
+eq_hash(H(((x2_1,(x2,(weak,(@1_nA_4,MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)))))),Nil)),H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))))))).
+
+36. The entry @1_Keys(@1_sk_3) that may be in a table by 1 may be read at get {92}.
+The entry @1_Keys(@1_sk_2) that may be in a table by 2 may be read at get {91}.
+The message (SA_INIT,@1_cookie_1) that the attacker may have by 5 may be received at input {14}.
+The message (x2_1,(x2,weak)) that the attacker may have by 10 may be received at input {20}.
+The event initA(pk(@1_sk_3),pk(@1_sk_2),(@1_nA_4,x2),((@1_cookie_1,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),x2),H(((@1_cookie_1,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(x2,MAC(pk(@1_sk_3),KDF(weak,(@1_nA_4,x2),3))))))),Nil)),H(((@1_cookie_1,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(x2,MAC(pk(@1_sk_3),KDF(weak,(@1_nA_4,x2),3))))))),Nil))) may be executed at {32}.
+The event initA2(pk(@1_sk_3),@1_sA_4) may be executed at {33}.
+The message senc((pk(@1_sk_2),sign(H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil)))))),@1_sk_2)),KDF(weak,(@1_nA_4,x2),2)) that the attacker may have by 34 may be received at input {35}.
+By 35, eq_hash(H(((x2_1,(x2,(weak,(@1_nA_4,MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)))))),Nil)),H((x2_1,(x2,(weak,(@1_nA_4,(MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,x2),4)),Nil))))))) is true at {41}.
+We have @1_cookie_1 ≠ noCookie && @1_sk_3 ≠ @1_sk_2.
+So event SanityA(false,((@1_cookie_1,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),(x2_1,(x2,weak)))) may be executed at {42}.
+end(SanityA(false,((@1_cookie_1,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),(x2_1,(x2,weak))))).
+
+37. By 36, end(SanityA(false,((@1_cookie_1,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),(x2_1,(x2,weak))))).
+The goal is reached, represented in the following fact:
+end(SanityA(false,((@1_cookie_1,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),(x2_1,(x2,weak))))).
+
+
+- Evaluation of ground_eq_hash(H(((a[],(a_1[],(weak,(@1_nA_4[],MAC(pk(@1_sk_2[]),KDF(weak,(@1_nA_4[],a_1[]),4)))))),Nil)),H((a[],(a_1[],(weak,(@1_nA_4[],(MAC(pk(@1_sk_2[]),KDF(weak,(@1_nA_4[],a_1[]),4)),Nil)))))))
+  Result: true
+
+A more detailed output of the traces is available with
+  set traceDisplay = long.
+
+new @1_sk: t_sk creating @1_sk_2 at {2} in copy a
+
+out(c, ~M) with ~M = pk(@1_sk_2) at {3} in copy a
+
+insert @1_Keys(@1_sk_2) at {4} in copy a
+
+new @1_sk: t_sk creating @1_sk_3 at {2} in copy a_1
+
+out(c, ~M_1) with ~M_1 = pk(@1_sk_3) at {3} in copy a_1
+
+insert @1_Keys(@1_sk_3) at {4} in copy a_1
+
+get @1_Keys(@1_sk_2) at {92} in copy a_2
+
+get @1_Keys(@1_sk_3) at {91} in copy a_2
+
+new @1_x: t_exponent creating @1_x_1 at {9} in copy a_2
+
+new @1_nA: bitstring creating @1_nA_4 at {10} in copy a_2
+
+new @1_sA: bitstring creating @1_sA_4 at {11} in copy a_2
+
+out(c, (~M_2,(~M_3,~M_4))) with ~M_2 = @1_sA_4, ~M_3 = @1_nA_4, ~M_4 = exp_ideal(g,@1_x_1) at {13} in copy a_2
+
+in(c, (SA_INIT,a_3)) at {14} in copy a_2
+
+in(c, (a_4,(a_5,weak))) at {20} in copy a_2
+
+event initA(pk(@1_sk_2),pk(@1_sk_3),(@1_nA_4,a_5),((a_3,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),a_5),H(((a_3,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(a_5,MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,a_5),3))))))),Nil)),H(((a_3,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(a_5,MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,a_5),3))))))),Nil))) at {32} in copy a_2
+
+event initA2(pk(@1_sk_2),@1_sA_4) at {33} in copy a_2
+
+out(c, ~M_5) with ~M_5 = senc((pk(@1_sk_2),sign(H(((a_3,(@1_sA_4,(@1_nA_4,(exp_ideal(g,@1_x_1),(a_5,MAC(pk(@1_sk_2),KDF(weak,(@1_nA_4,a_5),3))))))),Nil)),@1_sk_2)),KDF(weak,(@1_nA_4,a_5),1)) at {34} in copy a_2
+
+get @1_Keys(@1_sk_3) at {96} in copy a_6
+
+event Dishonest(pk(@1_sk_3)) at {94} in copy a_6
+
+out(c, ~M_6) with ~M_6 = @1_sk_3 at {95} in copy a_6
+
+in(c, senc((~M_1,sign(H((a_4,(a_5,(weak,(~M_3,(MAC(~M_1,KDF(weak,(~M_3,a_5),4)),Nil)))))),~M_6)),KDF(weak,(~M_3,a_5),2))) with senc((~M_1,sign(H((a_4,(a_5,(weak,(~M_3,(MAC(~M_1,KDF(weak,(~M_3,a_5),4)),Nil)))))),~M_6)),KDF(weak,(~M_3,a_5),2)) = senc((pk(@1_sk_3),sign(H((a_4,(a_5,(weak,(@1_nA_4,(MAC(pk(@1_sk_3),KDF(weak,(@1_nA_4,a_5),4)),Nil)))))),@1_sk_3)),KDF(weak,(@1_nA_4,a_5),2)) at {35} in copy a_2
+
+event SanityA(false,((a_3,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),(a_4,(a_5,weak)))) at {42} in copy a_2 (goal)
+
+The event SanityA(false,((a_3,(@1_sA_4,(@1_nA_4,exp_ideal(g,@1_x_1)))),(a_4,(a_5,weak)))) is executed at {42} in copy a_2.
+A trace has been found.
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 343, characters 3-83, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && is_var(x1) ==> x2 = x1
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 342, characters 3-83, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && is_var(x2) ==> x1 = x2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 337, characters 3-88, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && not(is_var(x1)) ==> x2 = x1
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 336, characters 3-88, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && not(is_var(x2)) ==> x1 = x2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 320, character 3 - line 321, character 19, is satisfied by the attack trace.
+eq_hash(H((y,(z,(w,Nil)))),H((x,Nil))) ==> x = (w,(z,y))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 316, character 3 - line 317, character 19, is satisfied by the attack trace.
+eq_hash(H((x_1,Nil)),H((y_1,(z_1,(w_1,Nil))))) ==> x_1 = (w_1,(z_1,y_1))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 310, character 3 - line 311, character 14, is satisfied by the attack trace.
+eq_hash(H((y_2,(z_2,Nil))),H((x_2,Nil))) ==> x_2 = (z_2,y_2)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 306, character 3 - line 307, character 14, is satisfied by the attack trace.
+eq_hash(H((x_3,Nil)),H((y_3,(z_3,Nil)))) ==> x_3 = (z_3,y_3)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 294, characters 3-92, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && not(cond_var(x1',h1')) && not(cond_var(x1_1,h1_1)) ==> x1_1 = x1'
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 293, characters 3-105, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && not(cond_var(x1',h1')) && cond_var(x1_1,h1_1) ==> x1_1 = x1' || x1' = (x1_1,x2')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 292, characters 3-104, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && cond_var(x1',h1') && not(cond_var(x1_1,h1_1)) ==> x1_1 = x1' || x1_1 = (x1',x2_1)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 291, characters 3-117, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && cond_var(x1',h1') && cond_var(x1_1,h1_1) ==> x1_1 = x1' || x1_1 = (x1',x2_1) || x1' = (x1_1,x2')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 260, characters 3-215, is satisfied by the attack trace.
+eq_assoc(h2_1,h1_2) && is_normal_flatten(h1_2) && is_normal_flatten(h2_1) && (x1_2,h1'_1) <-- rev_hash(h1_2,Nil) && (x2_2,h2') <-- rev_hash(h2_1,Nil) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2')) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 259, characters 3-215, is satisfied by the attack trace.
+eq_assoc(h1_2,h2_1) && is_normal_flatten(h1_2) && is_normal_flatten(h2_1) && (x1_2,h1'_1) <-- rev_hash(h1_2,Nil) && (x2_2,h2') <-- rev_hash(h2_1,Nil) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2')) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 258, characters 3-167, is satisfied by the attack trace.
+eq_assoc((x2_2,h2_1),(x1_2,h1_2)) && is_normal_flatten((x1_2,h1_2)) && is_normal_flatten((x2_2,h2_1)) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2_1)) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 257, characters 3-167, is satisfied by the attack trace.
+eq_assoc((x1_2,h1_2),(x2_2,h2_1)) && is_normal_flatten((x1_2,h1_2)) && is_normal_flatten((x2_2,h2_1)) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2_1)) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 238, characters 3-133, is satisfied by the attack trace.
+eq_assoc(h1_3,h2_2) && (u1,h1'_2) <-- rev_hash(h1_3,Nil) && (u2,h2'_1) <-- rev_hash(h2_2,Nil) && not(is_var(u1)) && not(is_var(u2)) ==> u1 = u2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 237, characters 3-77, is satisfied by the attack trace.
+eq_assoc((u1,h1_3),(u2,h2_2)) && not(is_var(u1)) && not(is_var(u2)) ==> u1 = u2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 227, characters 3-81, is satisfied by the attack trace.
+not (eq_assoc(h1_4,h2_3) && all_not_var(h1_4) && nb_element(h1_4) + 1 ≤ nb_element(h2_3))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 226, characters 3-81, is satisfied by the attack trace.
+not (eq_assoc(h1_4,h2_3) && all_not_var(h2_3) && nb_element(h2_3) + 1 ≤ nb_element(h1_4))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 202, characters 3-164, is satisfied by the attack trace.
+not (eq_assoc(h2_4,h1_5) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1'_3 <-- rev_hash(h1_5,Nil) && h2'_2 <-- rev_hash(h2_4,Nil) && false_hash_var(h1'_3,h2'_2,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 201, characters 3-164, is satisfied by the attack trace.
+not (eq_assoc(h1_5,h2_4) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1'_3 <-- rev_hash(h1_5,Nil) && h2'_2 <-- rev_hash(h2_4,Nil) && false_hash_var(h1'_3,h2'_2,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 200, characters 3-118, is satisfied by the attack trace.
+not (eq_assoc(h2_4,h1_5) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1_5 ≠ h2_4 && false_hash_var(h1_5,h2_4,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 199, characters 3-118, is satisfied by the attack trace.
+not (eq_assoc(h1_5,h2_4) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1_5 ≠ h2_4 && false_hash_var(h1_5,h2_4,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 141, characters 3-129, is satisfied by the attack trace.
+eq_assoc(h1_6,h2_5) && is_normal_flatten(h1_6) && is_normal_flatten(h2_5) && (h1'_4,h2'_3) <-- last_term_equal(h1_6,h2_5) ==> eq_assoc(h1'_4,h2'_3)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 140, characters 3-45, is satisfied by the attack trace.
+eq_assoc((x_4,h1_6),(x_4,h2_5)) ==> eq_assoc(h1_6,h2_5)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 103, characters 3-57, is satisfied by the attack trace.
+eq_assoc((x1_3,Nil),(x2_3,Nil)) && attacker(x2_3) ==> x1_3 = x2_3
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 102, characters 3-57, is satisfied by the attack trace.
+eq_assoc((x1_3,Nil),(x2_3,Nil)) && attacker(x1_3) ==> x1_3 = x2_3
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 97, characters 3-55, is satisfied by the attack trace.
+eq_assoc(t,((a_7,b),l)) ==> eq_assoc(t,(a_7,(b,l)))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 94, characters 3-55, is satisfied by the attack trace.
+eq_assoc(((a_8,b_1),l_1),t_1) ==> eq_assoc((a_8,(b_1,l_1)),t_1)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 81, characters 3-91, is satisfied by the attack trace.
+eq_assoc(h1_7,h2_6) && not(is_normal_flatten(h2_6)) && h2'_4 <-- flatten(h2_6) ==> eq_assoc(h1_7,h2'_4)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 80, characters 3-91, is satisfied by the attack trace.
+eq_assoc(h1_7,h2_6) && not(is_normal_flatten(h1_7)) && h1'_5 <-- flatten(h1_7) ==> eq_assoc(h1'_5,h2_6)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 76, characters 3-25, is satisfied by the attack trace.
+eq_assoc(h,h) ==> true
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 58, characters 3-40, is satisfied by the attack trace.
+eq_assoc(l1,(x2_4,l2)) ==> l1 = (x1_4,l1')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 57, characters 3-41, is satisfied by the attack trace.
+eq_assoc((x1_4,l1'),l2) ==> l2 = (x2_4,l2')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 56, characters 3-31, is satisfied by the attack trace.
+eq_assoc(l1,Nil) ==> l1 = Nil
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 55, characters 3-31, is satisfied by the attack trace.
+eq_assoc(Nil,l2) ==> l2 = Nil
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 50, characters 3-42, is satisfied by the attack trace.
+eq_hash(H(l1_1),H(l2_1)) ==> eq_assoc(l1_1,l2_1)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 47, characters 3-27, is satisfied by the attack trace.
+eq_hash(h_1,x_5) ==> x_5 = H(l_2)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 46, characters 3-27, is satisfied by the attack trace.
+eq_hash(x_5,h_1) ==> x_5 = H(l_2)
+RESULT not event(SanityA(false,x)) is false.
+Starting query not event(SanityB(true,x))
+goal reachable: @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && attacker(@1_mC_2) && attacker(x2) && attacker(x2_1) && eq_assoc(Nil,Nil) -> end(SanityB(true,((x2,(x2_1,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1))))))
+Abbreviations:
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sk_2 = @1_sk[!1 = @sid_1]
+@1_sB_2 = @1_sB_1[@1_mC_1 = @1_mC_2,@1_withCookie = false,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+@1_nB_2 = @1_nB_1[@1_mC_1 = @1_mC_2,@1_withCookie = false,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+@1_y_1 = @1_y[@1_mC_1 = @1_mC_2,@1_withCookie = false,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+
+Derivation:
+Abbreviations:
+@1_sk_2 = @1_sk[!1 = @sid]
+@1_sk_3 = @1_sk[!1 = @sid_1]
+@1_sB_2 = @1_sB_1[@1_mC_1 = @1_mC_2,@1_withCookie = false,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+@1_nB_2 = @1_nB_1[@1_mC_1 = @1_mC_2,@1_withCookie = false,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+@1_y_1 = @1_y[@1_mC_1 = @1_mC_2,@1_withCookie = false,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+
+1. The entry @1_Keys(@1_sk_3) may be inserted in a table at insert {4}.
+table(@1_Keys(@1_sk_3)).
+
+2. The entry @1_Keys(@1_sk_2) may be inserted in a table at insert {4}.
+table(@1_Keys(@1_sk_2)).
+
+3. Using the function weak the attacker may obtain weak.
+attacker(weak).
+
+4. We assume as hypothesis that
+attacker(x2_1).
+
+5. By 4, the attacker may know x2_1.
+By 3, the attacker may know weak.
+Using the function 2-tuple the attacker may obtain (x2_1,weak).
+attacker((x2_1,weak)).
+
+6. We assume as hypothesis that
+attacker(x2).
+
+7. By 6, the attacker may know x2.
+By 5, the attacker may know (x2_1,weak).
+Using the function 2-tuple the attacker may obtain (x2,(x2_1,weak)).
+attacker((x2,(x2_1,weak))).
+
+8. Using the function false the attacker may obtain false.
+attacker(false).
+
+9. We assume as hypothesis that
+attacker(@1_mC_2).
+
+10. Using the function 0 the attacker may obtain 0.
+attacker(0).
+
+11. By 10, the attacker may know 0.
+Using the function + the attacker may obtain 1.
+attacker(1).
+
+12. The entry @1_Keys(@1_sk_3) that may be in a table by 1 may be read at get {92}.
+The entry @1_Keys(@1_sk_2) that may be in a table by 2 may be read at get {91}.
+The message (x2,(x2_1,weak)) that the attacker may have by 7 may be received at input {48}.
+The message false that the attacker may have by 8 may be received at input {51}.
+The message @1_mC_2 that the attacker may have by 9 may be received at input {52}.
+We have false ≠ true && @1_sk_2 ≠ @1_sk_3.
+So the message (@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1))) may be sent to the attacker at output {80}.
+attacker((@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1)))).
+
+13. By 12, the attacker may know (@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1))).
+Using the function 2-proj-2-tuple the attacker may obtain (@1_nB_2,exp_ideal(g,@1_y_1)).
+attacker((@1_nB_2,exp_ideal(g,@1_y_1))).
+
+14. By 13, the attacker may know (@1_nB_2,exp_ideal(g,@1_y_1)).
+Using the function 1-proj-2-tuple the attacker may obtain @1_nB_2.
+attacker(@1_nB_2).
+
+15. By 4, the attacker may know x2_1.
+By 14, the attacker may know @1_nB_2.
+Using the function 2-tuple the attacker may obtain (x2_1,@1_nB_2).
+attacker((x2_1,@1_nB_2)).
+
+16. By 3, the attacker may know weak.
+By 15, the attacker may know (x2_1,@1_nB_2).
+By 11, the attacker may know 1.
+Using the function KDF the attacker may obtain KDF(weak,(x2_1,@1_nB_2),1).
+attacker(KDF(weak,(x2_1,@1_nB_2),1)).
+
+17. The entry @1_Keys(@1_sk_3) that may be in a table by 1 may be read at get {96}.
+The event Dishonest(pk(@1_sk_3)) may be executed at {94}.
+So the message @1_sk_3 may be sent to the attacker at output {95}.
+attacker(@1_sk_3).
+
+18. Using the function Nil the attacker may obtain Nil.
+attacker(Nil).
+
+19. By 11, the attacker may know 1.
+Using the function + the attacker may obtain 2.
+attacker(2).
+
+20. By 19, the attacker may know 2.
+Using the function + the attacker may obtain 3.
+attacker(3).
+
+21. By 3, the attacker may know weak.
+By 15, the attacker may know (x2_1,@1_nB_2).
+By 20, the attacker may know 3.
+Using the function KDF the attacker may obtain KDF(weak,(x2_1,@1_nB_2),3).
+attacker(KDF(weak,(x2_1,@1_nB_2),3)).
+
+22. The message pk(@1_sk_3) may be sent to the attacker at output {3}.
+attacker(pk(@1_sk_3)).
+
+23. By 22, the attacker may know pk(@1_sk_3).
+By 21, the attacker may know KDF(weak,(x2_1,@1_nB_2),3).
+Using the function MAC the attacker may obtain MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)).
+attacker(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3))).
+
+24. By 23, the attacker may know MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)).
+By 18, the attacker may know Nil.
+Using the function 2-tuple the attacker may obtain (MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil).
+attacker((MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)).
+
+25. By 14, the attacker may know @1_nB_2.
+By 24, the attacker may know (MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil).
+Using the function 2-tuple the attacker may obtain (@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)).
+attacker((@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))).
+
+26. By 3, the attacker may know weak.
+By 25, the attacker may know (@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)).
+Using the function 2-tuple the attacker may obtain (weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))).
+attacker((weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))).
+
+27. By 4, the attacker may know x2_1.
+By 26, the attacker may know (weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))).
+Using the function 2-tuple the attacker may obtain (x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))).
+attacker((x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))))).
+
+28. By 6, the attacker may know x2.
+By 27, the attacker may know (x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))).
+Using the function 2-tuple the attacker may obtain (x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))))).
+attacker((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))).
+
+29. By 28, the attacker may know (x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))))).
+Using the function H the attacker may obtain H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))).
+attacker(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))))))).
+
+30. By 29, the attacker may know H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))).
+By 17, the attacker may know @1_sk_3.
+Using the function sign the attacker may obtain sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3).
+attacker(sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3)).
+
+31. By 22, the attacker may know pk(@1_sk_3).
+By 30, the attacker may know sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3).
+Using the function 2-tuple the attacker may obtain (pk(@1_sk_3),sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3)).
+attacker((pk(@1_sk_3),sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3))).
+
+32. By 31, the attacker may know (pk(@1_sk_3),sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3)).
+By 16, the attacker may know KDF(weak,(x2_1,@1_nB_2),1).
+Using the function senc the attacker may obtain senc((pk(@1_sk_3),sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3)),KDF(weak,(x2_1,@1_nB_2),1)).
+attacker(senc((pk(@1_sk_3),sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3)),KDF(weak,(x2_1,@1_nB_2),1))).
+
+33. We assume as hypothesis that
+eq_hash(H(((x2,(x2_1,(weak,(@1_nB_2,MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)))))),Nil)),H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))))))).
+
+34. The entry @1_Keys(@1_sk_3) that may be in a table by 1 may be read at get {92}.
+The entry @1_Keys(@1_sk_2) that may be in a table by 2 may be read at get {91}.
+The message (x2,(x2_1,weak)) that the attacker may have by 7 may be received at input {48}.
+The message false that the attacker may have by 8 may be received at input {51}.
+The message @1_mC_2 that the attacker may have by 9 may be received at input {52}.
+The message senc((pk(@1_sk_3),sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3)),KDF(weak,(x2_1,@1_nB_2),1)) that the attacker may have by 32 may be received at input {81}.
+By 33, eq_hash(H(((x2,(x2_1,(weak,(@1_nB_2,MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)))))),Nil)),H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))))))) is true at {85}.
+We have @1_sk_2 ≠ @1_sk_3.
+So event SanityB(true,((x2,(x2_1,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1))))) may be executed at {90}.
+end(SanityB(true,((x2,(x2_1,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1)))))).
+
+35. By 34, end(SanityB(true,((x2,(x2_1,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1)))))).
+The goal is reached, represented in the following fact:
+end(SanityB(true,((x2,(x2_1,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1)))))).
+
+
+- Evaluation of ground_eq_hash(H(((a[],(a_1[],(weak,(@1_nB_2[],MAC(pk(@1_sk_2[]),KDF(weak,(a_1[],@1_nB_2[]),3)))))),Nil)),H((a[],(a_1[],(weak,(@1_nB_2[],(MAC(pk(@1_sk_2[]),KDF(weak,(a_1[],@1_nB_2[]),3)),Nil)))))))
+  Result: true
+
+A more detailed output of the traces is available with
+  set traceDisplay = long.
+
+new @1_sk: t_sk creating @1_sk_2 at {2} in copy a
+
+out(c, ~M) with ~M = pk(@1_sk_2) at {3} in copy a
+
+insert @1_Keys(@1_sk_2) at {4} in copy a
+
+new @1_sk: t_sk creating @1_sk_3 at {2} in copy a_1
+
+out(c, ~M_1) with ~M_1 = pk(@1_sk_3) at {3} in copy a_1
+
+insert @1_Keys(@1_sk_3) at {4} in copy a_1
+
+get @1_Keys(@1_sk_2) at {92} in copy a_2
+
+get @1_Keys(@1_sk_3) at {91} in copy a_2
+
+new @1_x: t_exponent creating @1_x_1 at {9} in copy a_2
+
+new @1_nA: bitstring creating @1_nA_4 at {10} in copy a_2
+
+new @1_sA: bitstring creating @1_sA_4 at {11} in copy a_2
+
+out(c, (~M_2,(~M_3,~M_4))) with ~M_2 = @1_sA_4, ~M_3 = @1_nA_4, ~M_4 = exp_ideal(g,@1_x_1) at {13} in copy a_2
+
+in(c, (a_3,(a_4,weak))) at {48} in copy a_2
+
+new @1_ck_1: bitstring creating @1_ck_2 at {49} in copy a_2
+
+out(c, ~M_5) with ~M_5 = @1_ck_2 at {50} in copy a_2
+
+in(c, false) at {51} in copy a_2
+
+in(c, a_5) at {52} in copy a_2
+
+new @1_y: t_exponent creating @1_y_1 at {67} in copy a_2
+
+new @1_nB_1: bitstring creating @1_nB_2 at {68} in copy a_2
+
+new @1_sB_1: bitstring creating @1_sB_2 at {69} in copy a_2
+
+event initB(pk(@1_sk_3),pk(@1_sk_2),(a_4,@1_nB_2),((a_3,(a_4,weak)),@1_nB_2),H(((a_3,(a_4,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(a_4,@1_nB_2),3)))))),Nil))) at {79} in copy a_2
+
+out(c, (~M_6,(~M_7,~M_8))) with ~M_6 = @1_sB_2, ~M_7 = @1_nB_2, ~M_8 = exp_ideal(g,@1_y_1) at {80} in copy a_2
+
+get @1_Keys(@1_sk_2) at {96} in copy a_6
+
+event Dishonest(pk(@1_sk_2)) at {94} in copy a_6
+
+out(c, ~M_9) with ~M_9 = @1_sk_2 at {95} in copy a_6
+
+in(c, senc((~M,sign(H((a_3,(a_4,(weak,(~M_7,(MAC(~M,KDF(weak,(a_4,~M_7),3)),Nil)))))),~M_9)),KDF(weak,(a_4,~M_7),1))) with senc((~M,sign(H((a_3,(a_4,(weak,(~M_7,(MAC(~M,KDF(weak,(a_4,~M_7),3)),Nil)))))),~M_9)),KDF(weak,(a_4,~M_7),1)) = senc((pk(@1_sk_2),sign(H((a_3,(a_4,(weak,(@1_nB_2,(MAC(pk(@1_sk_2),KDF(weak,(a_4,@1_nB_2),3)),Nil)))))),@1_sk_2)),KDF(weak,(a_4,@1_nB_2),1)) at {81} in copy a_2
+
+event acceptB(pk(@1_sk_3),pk(@1_sk_2),(a_4,@1_nB_2),((a_3,(a_4,weak)),@1_nB_2),H(((a_3,(a_4,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(a_4,@1_nB_2),3)))))),Nil)),H(((a_3,(a_4,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(a_4,@1_nB_2),3)))))),Nil))) at {87} in copy a_2
+
+event acceptB2(pk(@1_sk_3),pk(@1_sk_2),a_3) at {88} in copy a_2
+
+event sessionKeyB(pk(@1_sk_3),pk(@1_sk_2),KDF(weak,(a_4,@1_nB_2),1)) at {89} in copy a_2
+
+event SanityB(true,((a_3,(a_4,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1))))) at {90} in copy a_2 (goal)
+
+The event SanityB(true,((a_3,(a_4,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1))))) is executed at {90} in copy a_2.
+A trace has been found.
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 343, characters 3-83, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && is_var(x1) ==> x2 = x1
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 342, characters 3-83, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && is_var(x2) ==> x1 = x2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 337, characters 3-88, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && not(is_var(x1)) ==> x2 = x1
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 336, characters 3-88, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && not(is_var(x2)) ==> x1 = x2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 320, character 3 - line 321, character 19, is satisfied by the attack trace.
+eq_hash(H((y,(z,(w,Nil)))),H((x,Nil))) ==> x = (w,(z,y))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 316, character 3 - line 317, character 19, is satisfied by the attack trace.
+eq_hash(H((x_1,Nil)),H((y_1,(z_1,(w_1,Nil))))) ==> x_1 = (w_1,(z_1,y_1))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 310, character 3 - line 311, character 14, is satisfied by the attack trace.
+eq_hash(H((y_2,(z_2,Nil))),H((x_2,Nil))) ==> x_2 = (z_2,y_2)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 306, character 3 - line 307, character 14, is satisfied by the attack trace.
+eq_hash(H((x_3,Nil)),H((y_3,(z_3,Nil)))) ==> x_3 = (z_3,y_3)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 294, characters 3-92, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && not(cond_var(x1',h1')) && not(cond_var(x1_1,h1_1)) ==> x1_1 = x1'
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 293, characters 3-105, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && not(cond_var(x1',h1')) && cond_var(x1_1,h1_1) ==> x1_1 = x1' || x1' = (x1_1,x2')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 292, characters 3-104, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && cond_var(x1',h1') && not(cond_var(x1_1,h1_1)) ==> x1_1 = x1' || x1_1 = (x1',x2_1)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 291, characters 3-117, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && cond_var(x1',h1') && cond_var(x1_1,h1_1) ==> x1_1 = x1' || x1_1 = (x1',x2_1) || x1' = (x1_1,x2')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 260, characters 3-215, is satisfied by the attack trace.
+eq_assoc(h2_1,h1_2) && is_normal_flatten(h1_2) && is_normal_flatten(h2_1) && (x1_2,h1'_1) <-- rev_hash(h1_2,Nil) && (x2_2,h2') <-- rev_hash(h2_1,Nil) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2')) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 259, characters 3-215, is satisfied by the attack trace.
+eq_assoc(h1_2,h2_1) && is_normal_flatten(h1_2) && is_normal_flatten(h2_1) && (x1_2,h1'_1) <-- rev_hash(h1_2,Nil) && (x2_2,h2') <-- rev_hash(h2_1,Nil) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2')) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 258, characters 3-167, is satisfied by the attack trace.
+eq_assoc((x2_2,h2_1),(x1_2,h1_2)) && is_normal_flatten((x1_2,h1_2)) && is_normal_flatten((x2_2,h2_1)) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2_1)) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 257, characters 3-167, is satisfied by the attack trace.
+eq_assoc((x1_2,h1_2),(x2_2,h2_1)) && is_normal_flatten((x1_2,h1_2)) && is_normal_flatten((x2_2,h2_1)) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2_1)) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 238, characters 3-133, is satisfied by the attack trace.
+eq_assoc(h1_3,h2_2) && (u1,h1'_2) <-- rev_hash(h1_3,Nil) && (u2,h2'_1) <-- rev_hash(h2_2,Nil) && not(is_var(u1)) && not(is_var(u2)) ==> u1 = u2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 237, characters 3-77, is satisfied by the attack trace.
+eq_assoc((u1,h1_3),(u2,h2_2)) && not(is_var(u1)) && not(is_var(u2)) ==> u1 = u2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 227, characters 3-81, is satisfied by the attack trace.
+not (eq_assoc(h1_4,h2_3) && all_not_var(h1_4) && nb_element(h1_4) + 1 ≤ nb_element(h2_3))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 226, characters 3-81, is satisfied by the attack trace.
+not (eq_assoc(h1_4,h2_3) && all_not_var(h2_3) && nb_element(h2_3) + 1 ≤ nb_element(h1_4))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 202, characters 3-164, is satisfied by the attack trace.
+not (eq_assoc(h2_4,h1_5) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1'_3 <-- rev_hash(h1_5,Nil) && h2'_2 <-- rev_hash(h2_4,Nil) && false_hash_var(h1'_3,h2'_2,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 201, characters 3-164, is satisfied by the attack trace.
+not (eq_assoc(h1_5,h2_4) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1'_3 <-- rev_hash(h1_5,Nil) && h2'_2 <-- rev_hash(h2_4,Nil) && false_hash_var(h1'_3,h2'_2,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 200, characters 3-118, is satisfied by the attack trace.
+not (eq_assoc(h2_4,h1_5) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1_5 ≠ h2_4 && false_hash_var(h1_5,h2_4,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 199, characters 3-118, is satisfied by the attack trace.
+not (eq_assoc(h1_5,h2_4) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1_5 ≠ h2_4 && false_hash_var(h1_5,h2_4,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 141, characters 3-129, is satisfied by the attack trace.
+eq_assoc(h1_6,h2_5) && is_normal_flatten(h1_6) && is_normal_flatten(h2_5) && (h1'_4,h2'_3) <-- last_term_equal(h1_6,h2_5) ==> eq_assoc(h1'_4,h2'_3)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 140, characters 3-45, is satisfied by the attack trace.
+eq_assoc((x_4,h1_6),(x_4,h2_5)) ==> eq_assoc(h1_6,h2_5)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 103, characters 3-57, is satisfied by the attack trace.
+eq_assoc((x1_3,Nil),(x2_3,Nil)) && attacker(x2_3) ==> x1_3 = x2_3
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 102, characters 3-57, is satisfied by the attack trace.
+eq_assoc((x1_3,Nil),(x2_3,Nil)) && attacker(x1_3) ==> x1_3 = x2_3
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 97, characters 3-55, is satisfied by the attack trace.
+eq_assoc(t,((a_7,b),l)) ==> eq_assoc(t,(a_7,(b,l)))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 94, characters 3-55, is satisfied by the attack trace.
+eq_assoc(((a_8,b_1),l_1),t_1) ==> eq_assoc((a_8,(b_1,l_1)),t_1)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 81, characters 3-91, is satisfied by the attack trace.
+eq_assoc(h1_7,h2_6) && not(is_normal_flatten(h2_6)) && h2'_4 <-- flatten(h2_6) ==> eq_assoc(h1_7,h2'_4)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 80, characters 3-91, is satisfied by the attack trace.
+eq_assoc(h1_7,h2_6) && not(is_normal_flatten(h1_7)) && h1'_5 <-- flatten(h1_7) ==> eq_assoc(h1'_5,h2_6)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 76, characters 3-25, is satisfied by the attack trace.
+eq_assoc(h,h) ==> true
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 58, characters 3-40, is satisfied by the attack trace.
+eq_assoc(l1,(x2_4,l2)) ==> l1 = (x1_4,l1')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 57, characters 3-41, is satisfied by the attack trace.
+eq_assoc((x1_4,l1'),l2) ==> l2 = (x2_4,l2')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 56, characters 3-31, is satisfied by the attack trace.
+eq_assoc(l1,Nil) ==> l1 = Nil
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 55, characters 3-31, is satisfied by the attack trace.
+eq_assoc(Nil,l2) ==> l2 = Nil
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 50, characters 3-42, is satisfied by the attack trace.
+eq_hash(H(l1_1),H(l2_1)) ==> eq_assoc(l1_1,l2_1)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 47, characters 3-27, is satisfied by the attack trace.
+eq_hash(h_1,x_5) ==> x_5 = H(l_2)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 46, characters 3-27, is satisfied by the attack trace.
+eq_hash(x_5,h_1) ==> x_5 = H(l_2)
+RESULT not event(SanityB(true,x)) is false.
+Starting query not event(SanityB(false,x))
+goal reachable: @1_withCookie_1 ≠ false && @1_withCookie_1 ≠ true && @sid ≠ @sid_1 && begin(Dishonest(pk(@1_sk_2))) && attacker(@1_mC_2) && attacker(@1_withCookie_1) && attacker(x2) && attacker(x2_1) && eq_assoc(Nil,Nil) -> end(SanityB(false,((x2,(x2_1,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1))))))
+Abbreviations:
+@1_sk_3 = @1_sk[!1 = @sid]
+@1_sk_2 = @1_sk[!1 = @sid_1]
+@1_sB_2 = @1_sB_1[@1_mC_1 = @1_mC_2,@1_withCookie = @1_withCookie_1,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+@1_nB_2 = @1_nB_1[@1_mC_1 = @1_mC_2,@1_withCookie = @1_withCookie_1,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+@1_y_1 = @1_y[@1_mC_1 = @1_mC_2,@1_withCookie = @1_withCookie_1,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_3,@1_skA = @1_sk_2,!1 = @sid_2]
+
+Derivation:
+Abbreviations:
+@1_sk_2 = @1_sk[!1 = @sid]
+@1_sk_3 = @1_sk[!1 = @sid_1]
+@1_sB_2 = @1_sB_1[@1_mC_1 = @1_mC_2,@1_withCookie = @1_withCookie_1,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+@1_nB_2 = @1_nB_1[@1_mC_1 = @1_mC_2,@1_withCookie = @1_withCookie_1,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+@1_y_1 = @1_y[@1_mC_1 = @1_mC_2,@1_withCookie = @1_withCookie_1,@1_m1'_1 = (x2,(x2_1,weak)),@1_skB = @1_sk_2,@1_skA = @1_sk_3,!1 = @sid_2]
+
+1. The entry @1_Keys(@1_sk_3) may be inserted in a table at insert {4}.
+table(@1_Keys(@1_sk_3)).
+
+2. The entry @1_Keys(@1_sk_2) may be inserted in a table at insert {4}.
+table(@1_Keys(@1_sk_2)).
+
+3. Using the function weak the attacker may obtain weak.
+attacker(weak).
+
+4. We assume as hypothesis that
+attacker(x2_1).
+
+5. By 4, the attacker may know x2_1.
+By 3, the attacker may know weak.
+Using the function 2-tuple the attacker may obtain (x2_1,weak).
+attacker((x2_1,weak)).
+
+6. We assume as hypothesis that
+attacker(x2).
+
+7. By 6, the attacker may know x2.
+By 5, the attacker may know (x2_1,weak).
+Using the function 2-tuple the attacker may obtain (x2,(x2_1,weak)).
+attacker((x2,(x2_1,weak))).
+
+8. We assume as hypothesis that
+attacker(@1_withCookie_1).
+
+9. We assume as hypothesis that
+attacker(@1_mC_2).
+
+10. Using the function 0 the attacker may obtain 0.
+attacker(0).
+
+11. By 10, the attacker may know 0.
+Using the function + the attacker may obtain 1.
+attacker(1).
+
+12. The entry @1_Keys(@1_sk_3) that may be in a table by 1 may be read at get {92}.
+The entry @1_Keys(@1_sk_2) that may be in a table by 2 may be read at get {91}.
+The message (x2,(x2_1,weak)) that the attacker may have by 7 may be received at input {48}.
+The message @1_withCookie_1 that the attacker may have by 8 may be received at input {51}.
+The message @1_mC_2 that the attacker may have by 9 may be received at input {52}.
+We have @1_withCookie_1 ≠ true && @1_sk_2 ≠ @1_sk_3.
+So the message (@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1))) may be sent to the attacker at output {80}.
+attacker((@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1)))).
+
+13. By 12, the attacker may know (@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1))).
+Using the function 2-proj-2-tuple the attacker may obtain (@1_nB_2,exp_ideal(g,@1_y_1)).
+attacker((@1_nB_2,exp_ideal(g,@1_y_1))).
+
+14. By 13, the attacker may know (@1_nB_2,exp_ideal(g,@1_y_1)).
+Using the function 1-proj-2-tuple the attacker may obtain @1_nB_2.
+attacker(@1_nB_2).
+
+15. By 4, the attacker may know x2_1.
+By 14, the attacker may know @1_nB_2.
+Using the function 2-tuple the attacker may obtain (x2_1,@1_nB_2).
+attacker((x2_1,@1_nB_2)).
+
+16. By 3, the attacker may know weak.
+By 15, the attacker may know (x2_1,@1_nB_2).
+By 11, the attacker may know 1.
+Using the function KDF the attacker may obtain KDF(weak,(x2_1,@1_nB_2),1).
+attacker(KDF(weak,(x2_1,@1_nB_2),1)).
+
+17. The entry @1_Keys(@1_sk_3) that may be in a table by 1 may be read at get {96}.
+The event Dishonest(pk(@1_sk_3)) may be executed at {94}.
+So the message @1_sk_3 may be sent to the attacker at output {95}.
+attacker(@1_sk_3).
+
+18. Using the function Nil the attacker may obtain Nil.
+attacker(Nil).
+
+19. By 11, the attacker may know 1.
+Using the function + the attacker may obtain 2.
+attacker(2).
+
+20. By 19, the attacker may know 2.
+Using the function + the attacker may obtain 3.
+attacker(3).
+
+21. By 3, the attacker may know weak.
+By 15, the attacker may know (x2_1,@1_nB_2).
+By 20, the attacker may know 3.
+Using the function KDF the attacker may obtain KDF(weak,(x2_1,@1_nB_2),3).
+attacker(KDF(weak,(x2_1,@1_nB_2),3)).
+
+22. The message pk(@1_sk_3) may be sent to the attacker at output {3}.
+attacker(pk(@1_sk_3)).
+
+23. By 22, the attacker may know pk(@1_sk_3).
+By 21, the attacker may know KDF(weak,(x2_1,@1_nB_2),3).
+Using the function MAC the attacker may obtain MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)).
+attacker(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3))).
+
+24. By 23, the attacker may know MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)).
+By 18, the attacker may know Nil.
+Using the function 2-tuple the attacker may obtain (MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil).
+attacker((MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)).
+
+25. By 14, the attacker may know @1_nB_2.
+By 24, the attacker may know (MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil).
+Using the function 2-tuple the attacker may obtain (@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)).
+attacker((@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))).
+
+26. By 3, the attacker may know weak.
+By 25, the attacker may know (@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)).
+Using the function 2-tuple the attacker may obtain (weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))).
+attacker((weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))).
+
+27. By 4, the attacker may know x2_1.
+By 26, the attacker may know (weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))).
+Using the function 2-tuple the attacker may obtain (x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))).
+attacker((x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))))).
+
+28. By 6, the attacker may know x2.
+By 27, the attacker may know (x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))).
+Using the function 2-tuple the attacker may obtain (x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))))).
+attacker((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))).
+
+29. By 28, the attacker may know (x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))))).
+Using the function H the attacker may obtain H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))).
+attacker(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))))))).
+
+30. By 29, the attacker may know H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))).
+By 17, the attacker may know @1_sk_3.
+Using the function sign the attacker may obtain sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3).
+attacker(sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3)).
+
+31. By 22, the attacker may know pk(@1_sk_3).
+By 30, the attacker may know sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3).
+Using the function 2-tuple the attacker may obtain (pk(@1_sk_3),sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3)).
+attacker((pk(@1_sk_3),sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3))).
+
+32. By 31, the attacker may know (pk(@1_sk_3),sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3)).
+By 16, the attacker may know KDF(weak,(x2_1,@1_nB_2),1).
+Using the function senc the attacker may obtain senc((pk(@1_sk_3),sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3)),KDF(weak,(x2_1,@1_nB_2),1)).
+attacker(senc((pk(@1_sk_3),sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3)),KDF(weak,(x2_1,@1_nB_2),1))).
+
+33. We assume as hypothesis that
+eq_hash(H(((x2,(x2_1,(weak,(@1_nB_2,MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)))))),Nil)),H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))))))).
+
+34. The entry @1_Keys(@1_sk_3) that may be in a table by 1 may be read at get {92}.
+The entry @1_Keys(@1_sk_2) that may be in a table by 2 may be read at get {91}.
+The message (x2,(x2_1,weak)) that the attacker may have by 7 may be received at input {48}.
+The message @1_withCookie_1 that the attacker may have by 8 may be received at input {51}.
+The message @1_mC_2 that the attacker may have by 9 may be received at input {52}.
+The message senc((pk(@1_sk_3),sign(H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil)))))),@1_sk_3)),KDF(weak,(x2_1,@1_nB_2),1)) that the attacker may have by 32 may be received at input {81}.
+By 33, eq_hash(H(((x2,(x2_1,(weak,(@1_nB_2,MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)))))),Nil)),H((x2,(x2_1,(weak,(@1_nB_2,(MAC(pk(@1_sk_3),KDF(weak,(x2_1,@1_nB_2),3)),Nil))))))) is true at {85}.
+We have @1_withCookie_1 ≠ false && @1_withCookie_1 ≠ true && @1_sk_2 ≠ @1_sk_3.
+So event SanityB(false,((x2,(x2_1,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1))))) may be executed at {90}.
+end(SanityB(false,((x2,(x2_1,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1)))))).
+
+35. By 34, end(SanityB(false,((x2,(x2_1,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1)))))).
+The goal is reached, represented in the following fact:
+end(SanityB(false,((x2,(x2_1,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1)))))).
+
+
+- Evaluation of ground_eq_hash(H(((a[],(a_1[],(weak,(@1_nB_2[],MAC(pk(@1_sk_2[]),KDF(weak,(a_1[],@1_nB_2[]),3)))))),Nil)),H((a[],(a_1[],(weak,(@1_nB_2[],(MAC(pk(@1_sk_2[]),KDF(weak,(a_1[],@1_nB_2[]),3)),Nil)))))))
+  Result: true
+
+A more detailed output of the traces is available with
+  set traceDisplay = long.
+
+new @1_sk: t_sk creating @1_sk_2 at {2} in copy a
+
+out(c, ~M) with ~M = pk(@1_sk_2) at {3} in copy a
+
+insert @1_Keys(@1_sk_2) at {4} in copy a
+
+new @1_sk: t_sk creating @1_sk_3 at {2} in copy a_1
+
+out(c, ~M_1) with ~M_1 = pk(@1_sk_3) at {3} in copy a_1
+
+insert @1_Keys(@1_sk_3) at {4} in copy a_1
+
+get @1_Keys(@1_sk_2) at {92} in copy a_2
+
+get @1_Keys(@1_sk_3) at {91} in copy a_2
+
+new @1_x: t_exponent creating @1_x_1 at {9} in copy a_2
+
+new @1_nA: bitstring creating @1_nA_4 at {10} in copy a_2
+
+new @1_sA: bitstring creating @1_sA_4 at {11} in copy a_2
+
+out(c, (~M_2,(~M_3,~M_4))) with ~M_2 = @1_sA_4, ~M_3 = @1_nA_4, ~M_4 = exp_ideal(g,@1_x_1) at {13} in copy a_2
+
+in(c, (a_3,(a_4,weak))) at {48} in copy a_2
+
+new @1_ck_1: bitstring creating @1_ck_2 at {49} in copy a_2
+
+out(c, ~M_5) with ~M_5 = @1_ck_2 at {50} in copy a_2
+
+in(c, a_5) at {51} in copy a_2
+
+in(c, a_6) at {52} in copy a_2
+
+new @1_y: t_exponent creating @1_y_1 at {67} in copy a_2
+
+new @1_nB_1: bitstring creating @1_nB_2 at {68} in copy a_2
+
+new @1_sB_1: bitstring creating @1_sB_2 at {69} in copy a_2
+
+event initB(pk(@1_sk_3),pk(@1_sk_2),(a_4,@1_nB_2),((a_3,(a_4,weak)),@1_nB_2),H(((a_3,(a_4,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(a_4,@1_nB_2),3)))))),Nil))) at {79} in copy a_2
+
+out(c, (~M_6,(~M_7,~M_8))) with ~M_6 = @1_sB_2, ~M_7 = @1_nB_2, ~M_8 = exp_ideal(g,@1_y_1) at {80} in copy a_2
+
+get @1_Keys(@1_sk_2) at {96} in copy a_7
+
+event Dishonest(pk(@1_sk_2)) at {94} in copy a_7
+
+out(c, ~M_9) with ~M_9 = @1_sk_2 at {95} in copy a_7
+
+in(c, senc((~M,sign(H((a_3,(a_4,(weak,(~M_7,(MAC(~M,KDF(weak,(a_4,~M_7),3)),Nil)))))),~M_9)),KDF(weak,(a_4,~M_7),1))) with senc((~M,sign(H((a_3,(a_4,(weak,(~M_7,(MAC(~M,KDF(weak,(a_4,~M_7),3)),Nil)))))),~M_9)),KDF(weak,(a_4,~M_7),1)) = senc((pk(@1_sk_2),sign(H((a_3,(a_4,(weak,(@1_nB_2,(MAC(pk(@1_sk_2),KDF(weak,(a_4,@1_nB_2),3)),Nil)))))),@1_sk_2)),KDF(weak,(a_4,@1_nB_2),1)) at {81} in copy a_2
+
+event acceptB(pk(@1_sk_3),pk(@1_sk_2),(a_4,@1_nB_2),((a_3,(a_4,weak)),@1_nB_2),H(((a_3,(a_4,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(a_4,@1_nB_2),3)))))),Nil)),H(((a_3,(a_4,(weak,(@1_nB_2,MAC(pk(@1_sk_2),KDF(weak,(a_4,@1_nB_2),3)))))),Nil))) at {87} in copy a_2
+
+event acceptB2(pk(@1_sk_3),pk(@1_sk_2),a_3) at {88} in copy a_2
+
+event sessionKeyB(pk(@1_sk_3),pk(@1_sk_2),KDF(weak,(a_4,@1_nB_2),1)) at {89} in copy a_2
+
+event SanityB(false,((a_3,(a_4,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1))))) at {90} in copy a_2 (goal)
+
+The event SanityB(false,((a_3,(a_4,weak)),(@1_sB_2,(@1_nB_2,exp_ideal(g,@1_y_1))))) is executed at {90} in copy a_2.
+A trace has been found.
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 343, characters 3-83, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && is_var(x1) ==> x2 = x1
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 342, characters 3-83, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && is_var(x2) ==> x1 = x2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 337, characters 3-88, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && not(is_var(x1)) ==> x2 = x1
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 336, characters 3-88, is satisfied by the attack trace.
+eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && not(is_var(x2)) ==> x1 = x2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 320, character 3 - line 321, character 19, is satisfied by the attack trace.
+eq_hash(H((y,(z,(w,Nil)))),H((x,Nil))) ==> x = (w,(z,y))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 316, character 3 - line 317, character 19, is satisfied by the attack trace.
+eq_hash(H((x_1,Nil)),H((y_1,(z_1,(w_1,Nil))))) ==> x_1 = (w_1,(z_1,y_1))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 310, character 3 - line 311, character 14, is satisfied by the attack trace.
+eq_hash(H((y_2,(z_2,Nil))),H((x_2,Nil))) ==> x_2 = (z_2,y_2)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 306, character 3 - line 307, character 14, is satisfied by the attack trace.
+eq_hash(H((x_3,Nil)),H((y_3,(z_3,Nil)))) ==> x_3 = (z_3,y_3)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 294, characters 3-92, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && not(cond_var(x1',h1')) && not(cond_var(x1_1,h1_1)) ==> x1_1 = x1'
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 293, characters 3-105, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && not(cond_var(x1',h1')) && cond_var(x1_1,h1_1) ==> x1_1 = x1' || x1' = (x1_1,x2')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 292, characters 3-104, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && cond_var(x1',h1') && not(cond_var(x1_1,h1_1)) ==> x1_1 = x1' || x1_1 = (x1',x2_1)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 291, characters 3-117, is satisfied by the attack trace.
+eq_assoc((x1_1,h1_1),(x1',h1')) && cond_var(x1',h1') && cond_var(x1_1,h1_1) ==> x1_1 = x1' || x1_1 = (x1',x2_1) || x1' = (x1_1,x2')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 260, characters 3-215, is satisfied by the attack trace.
+eq_assoc(h2_1,h1_2) && is_normal_flatten(h1_2) && is_normal_flatten(h2_1) && (x1_2,h1'_1) <-- rev_hash(h1_2,Nil) && (x2_2,h2') <-- rev_hash(h2_1,Nil) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2')) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 259, characters 3-215, is satisfied by the attack trace.
+eq_assoc(h1_2,h2_1) && is_normal_flatten(h1_2) && is_normal_flatten(h2_1) && (x1_2,h1'_1) <-- rev_hash(h1_2,Nil) && (x2_2,h2') <-- rev_hash(h2_1,Nil) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2')) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 258, characters 3-167, is satisfied by the attack trace.
+eq_assoc((x2_2,h2_1),(x1_2,h1_2)) && is_normal_flatten((x1_2,h1_2)) && is_normal_flatten((x2_2,h2_1)) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2_1)) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 257, characters 3-167, is satisfied by the attack trace.
+eq_assoc((x1_2,h1_2),(x2_2,h2_1)) && is_normal_flatten((x1_2,h1_2)) && is_normal_flatten((x2_2,h2_1)) && is_var(x1_2) && instantiate_allowed(x1_2,(x2_2,h2_1)) ==> x1_2 = x2_2 || x1_2 = (x1'_1,x1'')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 238, characters 3-133, is satisfied by the attack trace.
+eq_assoc(h1_3,h2_2) && (u1,h1'_2) <-- rev_hash(h1_3,Nil) && (u2,h2'_1) <-- rev_hash(h2_2,Nil) && not(is_var(u1)) && not(is_var(u2)) ==> u1 = u2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 237, characters 3-77, is satisfied by the attack trace.
+eq_assoc((u1,h1_3),(u2,h2_2)) && not(is_var(u1)) && not(is_var(u2)) ==> u1 = u2
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 227, characters 3-81, is satisfied by the attack trace.
+not (eq_assoc(h1_4,h2_3) && all_not_var(h1_4) && nb_element(h1_4) + 1 ≤ nb_element(h2_3))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 226, characters 3-81, is satisfied by the attack trace.
+not (eq_assoc(h1_4,h2_3) && all_not_var(h2_3) && nb_element(h2_3) + 1 ≤ nb_element(h1_4))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 202, characters 3-164, is satisfied by the attack trace.
+not (eq_assoc(h2_4,h1_5) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1'_3 <-- rev_hash(h1_5,Nil) && h2'_2 <-- rev_hash(h2_4,Nil) && false_hash_var(h1'_3,h2'_2,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 201, characters 3-164, is satisfied by the attack trace.
+not (eq_assoc(h1_5,h2_4) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1'_3 <-- rev_hash(h1_5,Nil) && h2'_2 <-- rev_hash(h2_4,Nil) && false_hash_var(h1'_3,h2'_2,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 200, characters 3-118, is satisfied by the attack trace.
+not (eq_assoc(h2_4,h1_5) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1_5 ≠ h2_4 && false_hash_var(h1_5,h2_4,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 199, characters 3-118, is satisfied by the attack trace.
+not (eq_assoc(h1_5,h2_4) && is_normal_flatten(h1_5) && is_normal_flatten(h2_4) && h1_5 ≠ h2_4 && false_hash_var(h1_5,h2_4,Nil))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 141, characters 3-129, is satisfied by the attack trace.
+eq_assoc(h1_6,h2_5) && is_normal_flatten(h1_6) && is_normal_flatten(h2_5) && (h1'_4,h2'_3) <-- last_term_equal(h1_6,h2_5) ==> eq_assoc(h1'_4,h2'_3)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 140, characters 3-45, is satisfied by the attack trace.
+eq_assoc((x_4,h1_6),(x_4,h2_5)) ==> eq_assoc(h1_6,h2_5)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 103, characters 3-57, is satisfied by the attack trace.
+eq_assoc((x1_3,Nil),(x2_3,Nil)) && attacker(x2_3) ==> x1_3 = x2_3
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 102, characters 3-57, is satisfied by the attack trace.
+eq_assoc((x1_3,Nil),(x2_3,Nil)) && attacker(x1_3) ==> x1_3 = x2_3
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 97, characters 3-55, is satisfied by the attack trace.
+eq_assoc(t,((a_8,b),l)) ==> eq_assoc(t,(a_8,(b,l)))
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 94, characters 3-55, is satisfied by the attack trace.
+eq_assoc(((a_9,b_1),l_1),t_1) ==> eq_assoc((a_9,(b_1,l_1)),t_1)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 81, characters 3-91, is satisfied by the attack trace.
+eq_assoc(h1_7,h2_6) && not(is_normal_flatten(h2_6)) && h2'_4 <-- flatten(h2_6) ==> eq_assoc(h1_7,h2'_4)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 80, characters 3-91, is satisfied by the attack trace.
+eq_assoc(h1_7,h2_6) && not(is_normal_flatten(h1_7)) && h1'_5 <-- flatten(h1_7) ==> eq_assoc(h1'_5,h2_6)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 76, characters 3-25, is satisfied by the attack trace.
+eq_assoc(h,h) ==> true
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 58, characters 3-40, is satisfied by the attack trace.
+eq_assoc(l1,(x2_4,l2)) ==> l1 = (x1_4,l1')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 57, characters 3-41, is satisfied by the attack trace.
+eq_assoc((x1_4,l1'),l2) ==> l2 = (x2_4,l2')
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 56, characters 3-31, is satisfied by the attack trace.
+eq_assoc(l1,Nil) ==> l1 = Nil
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 55, characters 3-31, is satisfied by the attack trace.
+eq_assoc(Nil,l2) ==> l2 = Nil
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 50, characters 3-42, is satisfied by the attack trace.
+eq_hash(H(l1_1),H(l2_1)) ==> eq_assoc(l1_1,l2_1)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 47, characters 3-27, is satisfied by the attack trace.
+eq_hash(h_1,x_5) ==> x_5 = H(l_2)
+
+Warning: We could not verify that the following axiom, declared at File "libs/current/assoc_no_collision.pvl", line 46, characters 3-27, is satisfied by the attack trace.
+eq_hash(x_5,h_1) ==> x_5 = H(l_2)
+RESULT not event(SanityB(false,x)) is false.
+
+--------------------------------------------------------------
+Verification summary:
+
+Query(ies):
+ - Query event(acceptB2(B,A,sA)) ==> event(initA2(A,sA)) || event(Dishonest(B)) || event(Dishonest(A)) is true.
+ - Query event(acceptB(B,A,x,y,t,h)) ==> (event(initA(A,B',x',y',t',h')) && eq_hash(t,t')) || event(Dishonest(B)) || event(Dishonest(A)) is true.
+ - Query event(acceptB(B,A,x,y,t,h)) ==> (event(initA(A,B',x',y',t',h')) && eq_hash(h,h')) || event(Dishonest(B)) || event(Dishonest(A)) is true.
+ - Query not event(SanityA(true,x)) is false.
+ - Query not event(SanityA(false,x)) is false.
+ - Query not event(SanityB(true,x)) is false.
+ - Query not event(SanityB(false,x)) is false.
+Associated axiom(s):
+ - Axiom eq_hash(x,h) ==> x = H(l); eq_hash(h,x) ==> x = H(l) in process 1.
+ - Axiom eq_hash(H(l1),H(l2)) ==> eq_assoc(l1,l2) in process 1.
+ - Axiom eq_assoc(Nil,l2) ==> l2 = Nil; eq_assoc(l1,Nil) ==> l1 = Nil; eq_assoc((x1,l1'),l2) ==> l2 = (x2,l2'); eq_assoc(l1,(x2,l2)) ==> l1 = (x1,l1') in process 1.
+ - Axiom eq_assoc(h,h) ==> true in process 1.
+ - Axiom eq_assoc(h1,h2) && not(is_normal_flatten(h1)) && h1' <-- flatten(h1) ==> eq_assoc(h1',h2); eq_assoc(h1,h2) && not(is_normal_flatten(h2)) && h2' <-- flatten(h2) ==> eq_assoc(h1,h2') in process 1.
+ - Axiom eq_assoc(((a,b),l),t) ==> eq_assoc((a,(b,l)),t) in process 1.
+ - Axiom eq_assoc(t,((a,b),l)) ==> eq_assoc(t,(a,(b,l))) in process 1.
+ - Axiom eq_assoc((x1,Nil),(x2,Nil)) && attacker(x1) ==> x1 = x2; eq_assoc((x1,Nil),(x2,Nil)) && attacker(x2) ==> x1 = x2 in process 1.
+ - Axiom eq_assoc((x,h1),(x,h2)) ==> eq_assoc(h1,h2); eq_assoc(h1,h2) && is_normal_flatten(h1) && is_normal_flatten(h2) && (h1',h2') <-- last_term_equal(h1,h2) ==> eq_assoc(h1',h2') in process 1.
+ - Axiom not (eq_assoc(h1,h2) && is_normal_flatten(h1) && is_normal_flatten(h2) && h1 ≠ h2 && false_hash_var(h1,h2,Nil)); not (eq_assoc(h2,h1) && is_normal_flatten(h1) && is_normal_flatten(h2) && h1 ≠ h2 && false_hash_var(h1,h2,Nil)); not (eq_assoc(h1,h2) && is_normal_flatten(h1) && is_normal_flatten(h2) && h1' <-- rev_hash(h1,Nil) && h2' <-- rev_hash(h2,Nil) && false_hash_var(h1',h2',Nil)); not (eq_assoc(h2,h1) && is_normal_flatten(h1) && is_normal_flatten(h2) && h1' <-- rev_hash(h1,Nil) && h2' <-- rev_hash(h2,Nil) && false_hash_var(h1',h2',Nil)) in process 1.
+ - Axiom not (eq_assoc(h1,h2) && all_not_var(h2) && nb_element(h2) + 1 ≤ nb_element(h1)); not (eq_assoc(h1,h2) && all_not_var(h1) && nb_element(h1) + 1 ≤ nb_element(h2)) in process 1.
+ - Axiom eq_assoc((u1,h1),(u2,h2)) && not(is_var(u1)) && not(is_var(u2)) ==> u1 = u2; eq_assoc(h1,h2) && (u1,h1') <-- rev_hash(h1,Nil) && (u2,h2') <-- rev_hash(h2,Nil) && not(is_var(u1)) && not(is_var(u2)) ==> u1 = u2 in process 1.
+ - Axiom eq_assoc((x1,h1),(x2,h2)) && is_normal_flatten((x1,h1)) && is_normal_flatten((x2,h2)) && is_var(x1) && instantiate_allowed(x1,(x2,h2)) ==> x1 = x2 || x1 = (x1',x1''); eq_assoc((x2,h2),(x1,h1)) && is_normal_flatten((x1,h1)) && is_normal_flatten((x2,h2)) && is_var(x1) && instantiate_allowed(x1,(x2,h2)) ==> x1 = x2 || x1 = (x1',x1''); eq_assoc(h1,h2) && is_normal_flatten(h1) && is_normal_flatten(h2) && (x1,h1') <-- rev_hash(h1,Nil) && (x2,h2') <-- rev_hash(h2,Nil) && is_var(x1) && instantiate_allowed(x1,(x2,h2')) ==> x1 = x2 || x1 = (x1',x1''); eq_assoc(h2,h1) && is_normal_flatten(h1) && is_normal_flatten(h2) && (x1,h1') <-- rev_hash(h1,Nil) && (x2,h2') <-- rev_hash(h2,Nil) && is_var(x1) && instantiate_allowed(x1,(x2,h2')) ==> x1 = x2 || x1 = (x1',x1'') in process 1.
+ - Axiom eq_assoc((x1,h1),(x1',h1')) && cond_var(x1',h1') && cond_var(x1,h1) ==> x1 = x1' || x1 = (x1',x2) || x1' = (x1,x2'); eq_assoc((x1,h1),(x1',h1')) && cond_var(x1',h1') && not(cond_var(x1,h1)) ==> x1 = x1' || x1 = (x1',x2); eq_assoc((x1,h1),(x1',h1')) && not(cond_var(x1',h1')) && cond_var(x1,h1) ==> x1 = x1' || x1' = (x1,x2'); eq_assoc((x1,h1),(x1',h1')) && not(cond_var(x1',h1')) && not(cond_var(x1,h1)) ==> x1 = x1' in process 1.
+ - Axiom eq_hash(H((x,Nil)),H((y,(z,Nil)))) ==> x = (z,y) in process 1.
+ - Axiom eq_hash(H((y,(z,Nil))),H((x,Nil))) ==> x = (z,y) in process 1.
+ - Axiom eq_hash(H((x,Nil)),H((y,(z,(w,Nil))))) ==> x = (w,(z,y)) in process 1.
+ - Axiom eq_hash(H((y,(z,(w,Nil)))),H((x,Nil))) ==> x = (w,(z,y)) in process 1.
+ - Axiom eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && not(is_var(x2)) ==> x1 = x2; eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && not(is_var(x1)) ==> x2 = x1; eq_assoc((x1,h1),(x2,h2)) && is_var(x1) && attacker(x1) && is_var(x2) ==> x1 = x2; eq_assoc((x1,h1),(x2,h2)) && is_var(x2) && attacker(x2) && is_var(x1) ==> x2 = x1 in process 1.
+
+--------------------------------------------------------------
+
+make: Leaving directory '/home/hafeez/projects/Fast_and_FuriHash/MDH_construct'
